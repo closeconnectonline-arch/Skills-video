@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dj carrusel · plantilla</title>
+  <!-- Motor: no lo edites; cambia el aspecto con las variables de abajo -->
+  <link rel="stylesheet" href="../motor/dj-carrusel.css">
+  <style>
+    html, body { margin: 0; background: #000; }
+    /* Personalización (opcional): descomenta y cambia
+    .djc {
+      --djc-fondo: #000000;
+      --djc-texto: #ffffff;
+      --djc-panel: #0b0b0c;
+      --djc-fuente: system-ui, sans-serif;
+      --djc-swap: 0.5s;
+    } */
+  </style>
+</head>
+<body>
+  <!-- ============ DJ CARRUSEL ============
+       Opciones: data-espaciado, data-desplazamiento, data-panel, data-escalonado (ver motor/dj-carrusel.js) -->
+  <section class="djc" data-dj-carrusel aria-label="Galería">
+
+    <!-- [EDITAR] Titular: escribe el mismo texto en las dos líneas -->
+    <h1 class="djc__title djc__title--fade" aria-hidden="true">Tu titular va aquí.</h1>
+    <h1 class="djc__title djc__title--solid">Tu titular va aquí.</h1>
+
+    <div class="djc__stage">
+      <div class="djc__deck-wrap">
+        <div class="djc__deck"></div>
+
+        <!-- Panel de información (no editar: se llena con los datos) -->
+        <aside class="djc__panel" aria-live="polite" aria-hidden="true">
+          <div class="djc__panel-body">
+            <div class="djc__panel-top">
+              <span class="djc__count">01 / 06</span>
+              <button class="djc__close" type="button" aria-label="Cerrar">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11"/></svg>
+              </button>
+            </div>
+            <figure class="djc__photo"><img alt=""></figure>
+            <h2 class="djc__name"></h2>
+            <p class="djc__desc"></p>
+            <dl class="djc__meta"></dl>
+            <div class="djc__nav">
+              <button type="button" data-djc-prev>← Anterior</button>
+              <button type="button" data-djc-next>Siguiente →</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- [EDITAR] Indicación (puedes borrarla) -->
+    <p class="djc__hint">Pasa el mouse por las tarjetas · haz clic para ver su información</p>
+
+    <!-- [EDITAR] Fotos. 1ª = foto de fondo · última = tarjeta del frente (siempre a color).
+         Funciona con 3 o más fotos. Prepara cada foto con herramientas/preparar-imagenes.py -->
+    <script type="application/json" data-djc-datos>
+    [
+      {
+        "titulo": "Título de la foto 1",
+        "descripcion": "Descripción breve de la foto: quién aparece, dónde y qué está pasando.",
+        "imagen": "img/foto-01.jpg",
+        "completa": "img/foto-01-completa.jpg",
+        "datos": { "Archivo": "foto-01.jpg", "Tratamiento": "—", "Escena": "—", "Formato": "—" }
+      },
+      {
+        "titulo": "Título de la foto 2",
+        "descripcion": "Descripción breve de la foto: quién aparece, dónde y qué está pasando.",
+        "imagen": "img/foto-02.jpg",
+        "idle": "img/foto-02-idle.jpg",
+        "completa": "img/foto-02-completa.jpg",
+        "datos": { "Archivo": "foto-02.jpg", "Tratamiento": "—", "Escena": "—", "Formato": "—" }
+      },
+      {
+        "titulo": "Título de la foto 3",
+        "descripcion": "Descripción breve de la foto: quién aparece, dónde y qué está pasando.",
+        "imagen": "img/foto-03.jpg",
+        "idle": "img/foto-03-idle.jpg",
+        "completa": "img/foto-03-completa.jpg",
+        "datos": { "Archivo": "foto-03.jpg", "Tratamiento": "—", "Escena": "—", "Formato": "—" }
+      },
+      {
+        "titulo": "Título de la foto 4",
+        "descripcion": "Descripción breve de la foto: quién aparece, dónde y qué está pasando.",
+        "imagen": "img/foto-04.jpg",
+        "idle": "img/foto-04-idle.jpg",
+        "completa": "img/foto-04-completa.jpg",
+        "datos": { "Archivo": "foto-04.jpg", "Tratamiento": "—", "Escena": "—", "Formato": "—" }
+      },
+      {
+        "titulo": "Título de la foto 5",
+        "descripcion": "Descripción breve de la foto: quién aparece, dónde y qué está pasando.",
+        "imagen": "img/foto-05.jpg",
+        "idle": "img/foto-05-idle.jpg",
+        "completa": "img/foto-05-completa.jpg",
+        "datos": { "Archivo": "foto-05.jpg", "Tratamiento": "—", "Escena": "—", "Formato": "—" }
+      },
+      {
+        "titulo": "Título de la foto 6",
+        "descripcion": "Descripción breve de la foto: quién aparece, dónde y qué está pasando.",
+        "imagen": "img/foto-06.jpg",
+        "completa": "img/foto-06-completa.jpg",
+        "datos": { "Archivo": "foto-06.jpg", "Tratamiento": "—", "Escena": "—", "Formato": "—" }
+      }
+    ]
+    </script>
+  </section>
+
+  <script src="../motor/dj-carrusel.js"></script>
+</body>
+</html>

@@ -13,5 +13,10 @@
 - Para agregar uno: copia `librerias/_plantilla/`, usa el siguiente número de la categoría y actualiza la tabla del catálogo en `librerias/README.md`.
 - Si el usuario pega código en formato Markdown escapado (`\#`, `\-`, `\*`), límpialo antes de guardarlo.
 
+## Diseños
+- Elementos visuales completos y reutilizables van en `disenos/<nombre-corto>/` con `README.md`, `motor/` (CSS + JS que no se edita por proyecto) y `plantilla/` (página base con contenido de relleno). Opcionales: `ejemplo-*/` y `herramientas/`.
+- Al agregar uno, actualiza la tabla del catálogo en `disenos/README.md`.
+- Para usar un diseño, copia su `plantilla/` y llénala; no modifiques el motor salvo para mejorarlo para todos (sube la versión en su README).
+
 ## Git
 - Guarda los cambios con commits descriptivos en español.

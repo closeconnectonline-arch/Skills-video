@@ -1,0 +1,289 @@
+/* ============================================================
+   DJ CARRUSEL · motor de estilos (v1)
+   Tarjetas apiladas que pasan a color al pasar el mouse y despliegan
+   un panel con la información de cada foto al hacer clic.
+   Basado en "FeyCards" de Aceternity Labs.
+   Personaliza con las variables --djc-* (o enlázalas con marca/colores/tokens.css).
+   No edites este archivo para un proyecto concreto: sobreescribe las
+   variables en la página que lo usa.
+   ============================================================ */
+.djc {
+  --djc-fondo: #000000;
+  --djc-texto: #ffffff;
+  --djc-texto-suave: rgba(255, 255, 255, 0.6);
+  --djc-panel: #0b0b0c;
+  --djc-borde: rgba(255, 255, 255, 0.1);
+  --djc-card-w: 160px;          /* w-40 */
+  --djc-card-h: 480px;          /* h-120 */
+  --djc-swap: 0.5s;             /* swapDuration */
+  /* Resorte de Motion { visualDuration: 0.5, bounce: 0.2 } convertido a CSS */
+  --djc-spring: linear(0, 0.017, 0.0599, 0.1204, 0.1922, 0.2701, 0.35, 0.4289, 0.5048, 0.5722, 0.6381, 0.6979, 0.7513, 0.7984, 0.8393, 0.8745, 0.9043, 0.9279, 0.9487, 0.9657, 0.9792, 0.9898, 0.998, 1.0041, 1.0084, 1.0113, 1.0132, 1.0141, 1.0144, 1.0142, 1.0136, 1.0127, 1.0117, 1.0106, 1.0095, 1.0083, 1.0072, 1.0062, 1.0053, 1.0044, 1.0036, 1.003, 1.0024, 1.0019, 1.0014, 1.0011, 1.0007, 1.0005, 1);
+  --djc-spring-dur: 0.86s;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--djc-fondo);
+  color: var(--djc-texto);
+  font-family: var(--djc-fuente, system-ui, -apple-system, "Segoe UI", sans-serif);
+}
+
+/* Escala todo en pantallas pequeñas (la calcula script.js) */
+.djc__stage {
+  position: relative;
+  transform: scale(var(--djc-scale, 1));
+}
+
+/* Desplaza el conjunto a la izquierda cuando hay un panel abierto, para que quede centrado */
+.djc__deck-wrap {
+  position: relative;
+  transition: transform var(--djc-spring-dur) var(--djc-spring);
+  transform: translateX(var(--djc-center, 0px));
+}
+
+/* ---------- Titular ---------- */
+.djc__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  margin: 0;
+  padding: 1rem 0;
+  width: max-content;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.25rem, 4.2vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-align: center;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.djc__title--solid { background-image: linear-gradient(to right, #fff, #fff); opacity: 1; }
+.djc__title--fade {
+  background-image: linear-gradient(to right, #fff 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 60%, rgba(255,255,255,.2) 80%, #fff 100%);
+  opacity: 0;
+}
+.djc.is-hovered .djc__title--solid { opacity: 0; }
+.djc.is-hovered .djc__title--fade { opacity: 1; }
+.djc.is-open .djc__title { opacity: 0; }
+
+/* ---------- Mazo de tarjetas ---------- */
+.djc__deck {
+  position: relative;
+  display: flex;
+  width: var(--djc-deck-w, 24rem); /* w-96; script lo ajusta según el número de tarjetas */
+  height: var(--djc-card-h);
+}
+
+.djc__card {
+  position: absolute;
+  bottom: -0.5rem;
+  left: var(--left);
+  z-index: 20;
+  width: var(--djc-card-w);
+  height: var(--djc-card-h);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  /* Entrada: cada tarjeta parte de su desplazamiento y llega a 0 (escalonado, la última primero) */
+  animation: djc-in var(--djc-spring-dur) var(--djc-spring) both;
+  animation-delay: var(--delay, 0s);
+  -webkit-tap-highlight-color: transparent;
+}
+.djc__card--main { z-index: 1; bottom: 0; animation: none; }
+.djc__card { outline: none; }
+.djc__card:focus-visible .djc__inner { outline: 2px solid #fff; outline-offset: -2px; }
+
+@keyframes djc-in {
+  from { transform: translateX(var(--from, 0px)); }
+  to   { transform: translateX(0); }
+}
+
+.djc__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateX(var(--shift, 0px));
+  transition: transform var(--djc-spring-dur) var(--djc-spring);
+  /* mask-b-from-10% del original, aplicado a cada tarjeta para que las que se
+     recorren fuera del contenedor no se recorten */
+  -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 10%, transparent 100%);
+}
+
+.djc__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--djc-swap) ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.djc__img--active { opacity: 0; }
+.djc__img--idle { opacity: 1; }
+.djc__card--static .djc__img--active { opacity: 1; }
+
+.djc__card.is-active .djc__img--active { opacity: 1; }
+.djc__card.is-active .djc__img--idle { opacity: 0; }
+
+/* Sombra difusa en el borde izquierdo de cada tarjeta */
+.djc__shade {
+  position: absolute;
+  top: 2rem;
+  left: 0.5rem;
+  z-index: 5;
+  width: 1rem;
+  height: 100%;
+  background: #000;
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* Etiqueta pequeña con el número, visible solo en la tarjeta activa */
+.djc__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 6;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.djc__card.is-active .djc__badge { opacity: 1; }
+
+/* ---------- Panel de información desplegable ---------- */
+.djc__panel {
+  position: absolute;
+  top: 0.5rem;
+  left: var(--panel-left, 0px);
+  z-index: 30;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: var(--panel-w, 304px);
+  height: calc(var(--djc-card-h) - 0.5rem);
+  padding: 1rem;
+  border: 1px solid var(--djc-borde);
+  border-radius: 1rem;
+  background: var(--djc-panel);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  /* "Se despliega" desde la tarjeta hacia la derecha */
+  clip-path: inset(0 100% 0 0 round 1rem);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-24px);
+  transition:
+    clip-path var(--djc-spring-dur) var(--djc-spring),
+    transform var(--djc-spring-dur) var(--djc-spring),
+    opacity 0.3s ease,
+    visibility 0s linear var(--djc-spring-dur);
+}
+.djc.is-open .djc__panel {
+  clip-path: inset(0 0 0 0 round 1rem);
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition:
+    clip-path var(--djc-spring-dur) var(--djc-spring),
+    transform var(--djc-spring-dur) var(--djc-spring),
+    opacity 0.3s ease,
+    visibility 0s;
+}
+/* Al cambiar de tarjeta, el contenido entra de nuevo */
+.djc__panel-body { display: flex; flex-direction: column; gap: 0.65rem; min-height: 0; flex: 1; overflow-y: auto; scrollbar-width: none; }
+.djc__panel-body.is-swapping { animation: djc-content 0.45s ease both; }
+@keyframes djc-content {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.djc__panel-top { display: flex; align-items: center; justify-content: space-between; }
+.djc__count { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--djc-texto-suave); }
+.djc__close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--djc-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--djc-texto);
+  cursor: pointer;
+}
+.djc__close:hover { background: rgba(255, 255, 255, 0.08); }
+.djc__close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+.djc__photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  background: #151515;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+}
+.djc__photo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.djc__name { margin: 0.15rem 0 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+.djc__desc { margin: 0; font-size: 0.8rem; line-height: 1.4; color: var(--djc-texto-suave); }
+
+.djc__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.9rem;
+  margin: auto 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--djc-borde);
+  font-size: 0.75rem;
+}
+.djc__meta dt { color: var(--djc-texto-suave); }
+.djc__meta dd { margin: 0; text-align: right; }
+
+.djc__nav { display: flex; gap: 0.5rem; }
+.djc__nav button {
+  flex: 1;
+  padding: 0.4rem 0;
+  border: 1px solid var(--djc-borde);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--djc-texto);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.djc__nav button:hover { background: rgba(255, 255, 255, 0.08); }
+
+.djc__hint {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  transition: opacity 0.4s ease;
+}
+.djc.is-open .djc__hint { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .djc__card { animation: none; }
+  .djc__inner, .djc__deck-wrap, .djc__panel { transition-duration: 0.01s !important; }
+}

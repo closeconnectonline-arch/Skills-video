@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dj carrusel · ejemplo Untitled</title>
+  <!-- Motor: no lo edites; cambia el aspecto con las variables de abajo -->
+  <link rel="stylesheet" href="../motor/dj-carrusel.css">
+  <style>
+    html, body { margin: 0; background: #000; }
+    /* Personalización (opcional): descomenta y cambia
+    .djc {
+      --djc-fondo: #000000;
+      --djc-texto: #ffffff;
+      --djc-panel: #0b0b0c;
+      --djc-fuente: system-ui, sans-serif;
+      --djc-swap: 0.5s;
+    } */
+  </style>
+</head>
+<body>
+  <!-- ============ DJ CARRUSEL ============
+       Opciones: data-espaciado, data-desplazamiento, data-panel, data-escalonado (ver motor/dj-carrusel.js) -->
+  <section class="djc" data-dj-carrusel aria-label="Galería">
+
+    <!-- [EDITAR] Titular: escribe el mismo texto en las dos líneas -->
+    <h1 class="djc__title djc__title--fade" aria-hidden="true">Inspirado por los pros. Hecho para ti.</h1>
+    <h1 class="djc__title djc__title--solid">Inspirado por los pros. Hecho para ti.</h1>
+
+    <div class="djc__stage">
+      <div class="djc__deck-wrap">
+        <div class="djc__deck"></div>
+
+        <!-- Panel de información (no editar: se llena con los datos) -->
+        <aside class="djc__panel" aria-live="polite" aria-hidden="true">
+          <div class="djc__panel-body">
+            <div class="djc__panel-top">
+              <span class="djc__count">01 / 06</span>
+              <button class="djc__close" type="button" aria-label="Cerrar">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11"/></svg>
+              </button>
+            </div>
+            <figure class="djc__photo"><img alt=""></figure>
+            <h2 class="djc__name"></h2>
+            <p class="djc__desc"></p>
+            <dl class="djc__meta"></dl>
+            <div class="djc__nav">
+              <button type="button" data-djc-prev>← Anterior</button>
+              <button type="button" data-djc-next>Siguiente →</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- [EDITAR] Indicación (puedes borrarla) -->
+    <p class="djc__hint">Pasa el mouse por las tarjetas · haz clic para ver su información</p>
+
+    <!-- Ejemplo con las fotos de la sesión Untitled (las imágenes viven en librerias/tarjetas/01-panel-fey/img/).
+         [EDITAR] Fotos. 1ª = foto de fondo · última = tarjeta del frente (siempre a color).
+         Funciona con 3 o más fotos. Prepara cada foto con herramientas/preparar-imagenes.py -->
+    <script type="application/json" data-djc-datos>
+[
+  {
+    "titulo": "El trío en blanco y negro",
+    "descripcion": "Los tres juntos en la fiesta, entre muros de ladrillo: máscara de conejo blanca, traje de protección con respirador y pasamontañas negro.",
+    "imagen": "../../../librerias/tarjetas/01-panel-fey/img/00-principal.jpg",
+    "completa": "../../../librerias/tarjetas/01-panel-fey/img/00-principal-completa.jpg",
+    "datos": {
+      "Archivo": "IMG_9661.jpg",
+      "Tratamiento": "Blanco y negro",
+      "Escena": "Interior · fiesta",
+      "Formato": "Horizontal 3:2"
+    }
+  },
+  {
+    "titulo": "Cara a cara",
+    "descripcion": "Retrato cerrado con flash directo: el pasamontañas de pestañas y la máscara de conejo, con la playera UNTITLED al frente.",
+    "imagen": "../../../librerias/tarjetas/01-panel-fey/img/01-cara-a-cara.jpg",
+    "idle": "../../../librerias/tarjetas/01-panel-fey/img/01-cara-a-cara-idle.jpg",
+    "completa": "../../../librerias/tarjetas/01-panel-fey/img/01-cara-a-cara-completa.jpg",
+    "datos": {
+      "Archivo": "_MG_4989-2.jpg",
+      "Tratamiento": "Blanco y negro",
+      "Escena": "Interior · retrato",
+      "Formato": "Vertical 2:3"
+    }
+  },
+  {
+    "titulo": "Luz roja",
+    "descripcion": "La versión a color del trío: el traje amarillo resalta contra la luz roja del lugar y las pestañas neón brillan en la máscara negra.",
+    "imagen": "../../../librerias/tarjetas/01-panel-fey/img/02-luz-roja.jpg",
+    "idle": "../../../librerias/tarjetas/01-panel-fey/img/02-luz-roja-idle.jpg",
+    "completa": "../../../librerias/tarjetas/01-panel-fey/img/02-luz-roja-completa.jpg",
+    "datos": {
+      "Archivo": "IMG_9661-2.jpg",
+      "Tratamiento": "Color",
+      "Escena": "Interior · fiesta",
+      "Formato": "Horizontal 3:2"
+    }
+  },
+  {
+    "titulo": "Sobre el pasto",
+    "descripcion": "Momento relajado al aire libre: el del traje amarillo sonríe recostado en el pasto, con los dos enmascarados detrás.",
+    "imagen": "../../../librerias/tarjetas/01-panel-fey/img/03-sobre-el-pasto.jpg",
+    "idle": "../../../librerias/tarjetas/01-panel-fey/img/03-sobre-el-pasto-idle.jpg",
+    "completa": "../../../librerias/tarjetas/01-panel-fey/img/03-sobre-el-pasto-completa.jpg",
+    "datos": {
+      "Archivo": "IMG_9667.jpg",
+      "Tratamiento": "Color",
+      "Escena": "Exterior · noche",
+      "Formato": "Horizontal 3:2"
+    }
+  },
+  {
+    "titulo": "Ojos neón",
+    "descripcion": "El pasamontañas negro con pestañas verde y rosa neón en primer plano; detrás, desenfocados, el traje amarillo y el conejo.",
+    "imagen": "../../../librerias/tarjetas/01-panel-fey/img/04-ojos-neon.jpg",
+    "idle": "../../../librerias/tarjetas/01-panel-fey/img/04-ojos-neon-idle.jpg",
+    "completa": "../../../librerias/tarjetas/01-panel-fey/img/04-ojos-neon-completa.jpg",
+    "datos": {
+      "Archivo": "IMG_9670.jpg",
+      "Tratamiento": "Color",
+      "Escena": "Exterior · noche",
+      "Formato": "Horizontal 3:2"
+    }
+  },
+  {
+    "titulo": "Untitled",
+    "descripcion": "El conejo inclina la cabeza frente a las luces del fondo; la oreja larga termina en un llavero de tenis morado.",
+    "imagen": "../../../librerias/tarjetas/01-panel-fey/img/05-untitled.jpg",
+    "completa": "../../../librerias/tarjetas/01-panel-fey/img/05-untitled-completa.jpg",
+    "datos": {
+      "Archivo": "IMG_9674.jpg",
+      "Tratamiento": "Color",
+      "Escena": "Exterior · noche",
+      "Formato": "Horizontal 3:2"
+    }
+  }
+]
+    </script>
+  </section>
+
+  <script src="../motor/dj-carrusel.js"></script>
+</body>
+</html>
