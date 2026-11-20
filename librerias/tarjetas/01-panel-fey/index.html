@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de tarjetas Untitled</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Solo para la demo */
+    html, body { margin: 0; background: #000; }
+  </style>
+</head>
+<body>
+  <section class="fey" data-fey aria-label="Galería Untitled">
+    <!-- Titular: el sólido se ve en reposo; el degradado (transparente al centro) al pasar el mouse -->
+    <h1 class="fey__title fey__title--fade" aria-hidden="true">Inspirado por los pros. Hecho para ti.</h1>
+    <h1 class="fey__title fey__title--solid">Inspirado por los pros. Hecho para ti.</h1>
+
+    <div class="fey__stage">
+      <div class="fey__deck-wrap">
+        <!-- script.js crea aquí la foto principal y las 5 tarjetas a partir de los datos de abajo -->
+        <div class="fey__deck"></div>
+
+        <!-- Panel que se despliega con la información de la foto -->
+        <aside class="fey__panel" aria-live="polite" aria-hidden="true">
+          <div class="fey__panel-body">
+            <div class="fey__panel-top">
+              <span class="fey__count">01 / 06</span>
+              <button class="fey__close" type="button" aria-label="Cerrar">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11"/></svg>
+              </button>
+            </div>
+            <figure class="fey__photo"><img alt=""></figure>
+            <h2 class="fey__name"></h2>
+            <p class="fey__desc"></p>
+            <dl class="fey__meta"></dl>
+            <div class="fey__nav">
+              <button type="button" data-fey-prev>← Anterior</button>
+              <button type="button" data-fey-next>Siguiente →</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <p class="fey__hint">Pasa el mouse por las tarjetas · haz clic para ver su información</p>
+  </section>
+
+  <!-- Datos de cada foto. El primero es la foto principal (al fondo, a la izquierda);
+       el último es la tarjeta del frente, que siempre se ve a color. Edita textos e imágenes aquí. -->
+  <script type="application/json" id="fey-data">
+  [
+    {
+      "titulo": "El trío en blanco y negro",
+      "descripcion": "Los tres juntos en la fiesta, entre muros de ladrillo: máscara de conejo blanca, traje de protección con respirador y pasamontañas negro.",
+      "imagen": "img/00-principal.jpg",
+      "completa": "img/00-principal-completa.jpg",
+      "datos": { "Archivo": "IMG_9661.jpg", "Tratamiento": "Blanco y negro", "Escena": "Interior · fiesta", "Formato": "Horizontal 3:2" }
+    },
+    {
+      "titulo": "Cara a cara",
+      "descripcion": "Retrato cerrado con flash directo: el pasamontañas de pestañas y la máscara de conejo, con la playera UNTITLED al frente.",
+      "imagen": "img/01-cara-a-cara.jpg",
+      "idle": "img/01-cara-a-cara-idle.jpg",
+      "completa": "img/01-cara-a-cara-completa.jpg",
+      "datos": { "Archivo": "_MG_4989-2.jpg", "Tratamiento": "Blanco y negro", "Escena": "Interior · retrato", "Formato": "Vertical 2:3" }
+    },
+    {
+      "titulo": "Luz roja",
+      "descripcion": "La versión a color del trío: el traje amarillo resalta contra la luz roja del lugar y las pestañas neón brillan en la máscara negra.",
+      "imagen": "img/02-luz-roja.jpg",
+      "idle": "img/02-luz-roja-idle.jpg",
+      "completa": "img/02-luz-roja-completa.jpg",
+      "datos": { "Archivo": "IMG_9661-2.jpg", "Tratamiento": "Color", "Escena": "Interior · fiesta", "Formato": "Horizontal 3:2" }
+    },
+    {
+      "titulo": "Sobre el pasto",
+      "descripcion": "Momento relajado al aire libre: el del traje amarillo sonríe recostado en el pasto, con los dos enmascarados detrás.",
+      "imagen": "img/03-sobre-el-pasto.jpg",
+      "idle": "img/03-sobre-el-pasto-idle.jpg",
+      "completa": "img/03-sobre-el-pasto-completa.jpg",
+      "datos": { "Archivo": "IMG_9667.jpg", "Tratamiento": "Color", "Escena": "Exterior · noche", "Formato": "Horizontal 3:2" }
+    },
+    {
+      "titulo": "Ojos neón",
+      "descripcion": "El pasamontañas negro con pestañas verde y rosa neón en primer plano; detrás, desenfocados, el traje amarillo y el conejo.",
+      "imagen": "img/04-ojos-neon.jpg",
+      "idle": "img/04-ojos-neon-idle.jpg",
+      "completa": "img/04-ojos-neon-completa.jpg",
+      "datos": { "Archivo": "IMG_9670.jpg", "Tratamiento": "Color", "Escena": "Exterior · noche", "Formato": "Horizontal 3:2" }
+    },
+    {
+      "titulo": "Untitled",
+      "descripcion": "El conejo inclina la cabeza frente a las luces del fondo; la oreja larga termina en un llavero de tenis morado.",
+      "imagen": "img/05-untitled.jpg",
+      "completa": "img/05-untitled-completa.jpg",
+      "datos": { "Archivo": "IMG_9674.jpg", "Tratamiento": "Color", "Escena": "Exterior · noche", "Formato": "Horizontal 3:2" }
+    }
+  ]
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

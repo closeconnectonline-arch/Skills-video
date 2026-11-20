@@ -60,5 +60,10 @@ Si la categoría no existe, crea la carpeta nueva y añádela al árbol de arrib
 | 02 | [Redes estilo dibujo a mano](tooltips/02-doodle-redes-sociales/) | Íconos pastel sobre hoja de cuaderno | ✅ |
 | 03 | [Avatares animados](tooltips/03-avatares-animados/) | 6 fotos circulares con tooltip que gira siguiendo el mouse | ✅ |
 
-### Tarjetas · Formularios · Animaciones · Transiciones · Íconos
+### Tarjetas
+| # | Componente | Descripción | HTML |
+|---|---|---|---|
+| 01 | [Panel de tarjetas desplegables](tarjetas/01-panel-fey/) | Tarjetas apiladas que pasan a color y despliegan un panel con la info de cada foto | ✅ |
+
+### Formularios · Animaciones · Transiciones · Íconos
 _Sin componentes todavía._

@@ -1,0 +1,283 @@
+/* Panel de tarjetas apiladas (reconstrucción de "FeyCards" de Aceternity Labs)
+   + tarjetas que se despliegan con la información de cada foto.
+   Ajusta las variables --fey-* o enlázalas con marca/colores/tokens.css */
+.fey {
+  --fey-fondo: #000000;
+  --fey-texto: #ffffff;
+  --fey-texto-suave: rgba(255, 255, 255, 0.6);
+  --fey-panel: #0b0b0c;
+  --fey-borde: rgba(255, 255, 255, 0.1);
+  --fey-card-w: 160px;          /* w-40 */
+  --fey-card-h: 480px;          /* h-120 */
+  --fey-swap: 0.5s;             /* swapDuration */
+  /* Resorte de Motion { visualDuration: 0.5, bounce: 0.2 } convertido a CSS */
+  --fey-spring: linear(0, 0.017, 0.0599, 0.1204, 0.1922, 0.2701, 0.35, 0.4289, 0.5048, 0.5722, 0.6381, 0.6979, 0.7513, 0.7984, 0.8393, 0.8745, 0.9043, 0.9279, 0.9487, 0.9657, 0.9792, 0.9898, 0.998, 1.0041, 1.0084, 1.0113, 1.0132, 1.0141, 1.0144, 1.0142, 1.0136, 1.0127, 1.0117, 1.0106, 1.0095, 1.0083, 1.0072, 1.0062, 1.0053, 1.0044, 1.0036, 1.003, 1.0024, 1.0019, 1.0014, 1.0011, 1.0007, 1.0005, 1);
+  --fey-spring-dur: 0.86s;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--fey-fondo);
+  color: var(--fey-texto);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Escala todo en pantallas pequeñas (la calcula script.js) */
+.fey__stage {
+  position: relative;
+  transform: scale(var(--fey-scale, 1));
+}
+
+/* Desplaza el conjunto a la izquierda cuando hay un panel abierto, para que quede centrado */
+.fey__deck-wrap {
+  position: relative;
+  transition: transform var(--fey-spring-dur) var(--fey-spring);
+  transform: translateX(var(--fey-center, 0px));
+}
+
+/* ---------- Titular ---------- */
+.fey__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  margin: 0;
+  padding: 1rem 0;
+  width: max-content;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.25rem, 4.2vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-align: center;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.fey__title--solid { background-image: linear-gradient(to right, #fff, #fff); opacity: 1; }
+.fey__title--fade {
+  background-image: linear-gradient(to right, #fff 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 60%, rgba(255,255,255,.2) 80%, #fff 100%);
+  opacity: 0;
+}
+.fey.is-hovered .fey__title--solid { opacity: 0; }
+.fey.is-hovered .fey__title--fade { opacity: 1; }
+.fey.is-open .fey__title { opacity: 0; }
+
+/* ---------- Mazo de tarjetas ---------- */
+.fey__deck {
+  position: relative;
+  display: flex;
+  width: 24rem;                 /* w-96 */
+  height: var(--fey-card-h);
+}
+
+.fey__card {
+  position: absolute;
+  bottom: -0.5rem;
+  left: var(--left);
+  z-index: 20;
+  width: var(--fey-card-w);
+  height: var(--fey-card-h);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  /* Entrada: cada tarjeta parte de su desplazamiento y llega a 0 (escalonado, la última primero) */
+  animation: fey-in var(--fey-spring-dur) var(--fey-spring) both;
+  animation-delay: var(--delay, 0s);
+  -webkit-tap-highlight-color: transparent;
+}
+.fey__card--main { z-index: 1; bottom: 0; animation: none; }
+.fey__card { outline: none; }
+.fey__card:focus-visible .fey__inner { outline: 2px solid #fff; outline-offset: -2px; }
+
+@keyframes fey-in {
+  from { transform: translateX(var(--from, 0px)); }
+  to   { transform: translateX(0); }
+}
+
+.fey__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateX(var(--shift, 0px));
+  transition: transform var(--fey-spring-dur) var(--fey-spring);
+  /* mask-b-from-10% del original, aplicado a cada tarjeta para que las que se
+     recorren fuera del contenedor no se recorten */
+  -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 10%, transparent 100%);
+}
+
+.fey__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--fey-swap) ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.fey__img--active { opacity: 0; }
+.fey__img--idle { opacity: 1; }
+.fey__card--static .fey__img--active { opacity: 1; }
+
+.fey__card.is-active .fey__img--active { opacity: 1; }
+.fey__card.is-active .fey__img--idle { opacity: 0; }
+
+/* Sombra difusa en el borde izquierdo de cada tarjeta */
+.fey__shade {
+  position: absolute;
+  top: 2rem;
+  left: 0.5rem;
+  z-index: 5;
+  width: 1rem;
+  height: 100%;
+  background: #000;
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* Etiqueta pequeña con el número, visible solo en la tarjeta activa */
+.fey__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 6;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.fey__card.is-active .fey__badge { opacity: 1; }
+
+/* ---------- Panel de información desplegable ---------- */
+.fey__panel {
+  position: absolute;
+  top: 0.5rem;
+  left: var(--panel-left, 0px);
+  z-index: 30;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: var(--panel-w, 304px);
+  height: calc(var(--fey-card-h) - 0.5rem);
+  padding: 1rem;
+  border: 1px solid var(--fey-borde);
+  border-radius: 1rem;
+  background: var(--fey-panel);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  /* "Se despliega" desde la tarjeta hacia la derecha */
+  clip-path: inset(0 100% 0 0 round 1rem);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-24px);
+  transition:
+    clip-path var(--fey-spring-dur) var(--fey-spring),
+    transform var(--fey-spring-dur) var(--fey-spring),
+    opacity 0.3s ease,
+    visibility 0s linear var(--fey-spring-dur);
+}
+.fey.is-open .fey__panel {
+  clip-path: inset(0 0 0 0 round 1rem);
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition:
+    clip-path var(--fey-spring-dur) var(--fey-spring),
+    transform var(--fey-spring-dur) var(--fey-spring),
+    opacity 0.3s ease,
+    visibility 0s;
+}
+/* Al cambiar de tarjeta, el contenido entra de nuevo */
+.fey__panel-body { display: flex; flex-direction: column; gap: 0.65rem; min-height: 0; flex: 1; overflow-y: auto; scrollbar-width: none; }
+.fey__panel-body.is-swapping { animation: fey-content 0.45s ease both; }
+@keyframes fey-content {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.fey__panel-top { display: flex; align-items: center; justify-content: space-between; }
+.fey__count { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--fey-texto-suave); }
+.fey__close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--fey-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fey-texto);
+  cursor: pointer;
+}
+.fey__close:hover { background: rgba(255, 255, 255, 0.08); }
+.fey__close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+.fey__photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  background: #151515;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+}
+.fey__photo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.fey__name { margin: 0.15rem 0 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+.fey__desc { margin: 0; font-size: 0.8rem; line-height: 1.4; color: var(--fey-texto-suave); }
+
+.fey__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.9rem;
+  margin: auto 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--fey-borde);
+  font-size: 0.75rem;
+}
+.fey__meta dt { color: var(--fey-texto-suave); }
+.fey__meta dd { margin: 0; text-align: right; }
+
+.fey__nav { display: flex; gap: 0.5rem; }
+.fey__nav button {
+  flex: 1;
+  padding: 0.4rem 0;
+  border: 1px solid var(--fey-borde);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--fey-texto);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.fey__nav button:hover { background: rgba(255, 255, 255, 0.08); }
+
+.fey__hint {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  transition: opacity 0.4s ease;
+}
+.fey.is-open .fey__hint { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fey__card { animation: none; }
+  .fey__inner, .fey__deck-wrap, .fey__panel { transition-duration: 0.01s !important; }
+}
