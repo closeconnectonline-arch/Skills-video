@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640">
+  <!-- Fondo original "Besos con crema": fresas y corazones en rosa suave. Mosaico de 640×640. -->
+  <defs>
+    <symbol id="fresa" viewBox="0 0 100 124" overflow="visible">
+      <path d="M50 120C22 103 4 74 6 50 8 30 26 20 50 28 74 20 92 30 94 50 96 74 78 103 50 120Z" fill="#f6b3c6"/>
+      <path d="M50 120C78 103 96 74 94 50 92 34 80 25 66 25 78 44 76 86 50 120Z" fill="#f09ab5" opacity=".55"/>
+      <path d="M50 28C40 12 27 13 19 22 31 22 41 27 50 28ZM50 28C60 12 73 13 81 22 69 22 59 27 50 28ZM50 28C44 14 49 3 50 1 51 3 56 14 50 28Z" fill="#cfe6d2"/>
+      <g fill="#fff6f8" opacity=".9">
+        <ellipse cx="32" cy="52" rx="2.6" ry="4" transform="rotate(-20 32 52)"/>
+        <ellipse cx="52" cy="46" rx="2.6" ry="4"/>
+        <ellipse cx="70" cy="56" rx="2.6" ry="4" transform="rotate(20 70 56)"/>
+        <ellipse cx="42" cy="74" rx="2.6" ry="4" transform="rotate(-12 42 74)"/>
+        <ellipse cx="62" cy="78" rx="2.6" ry="4" transform="rotate(14 62 78)"/>
+        <ellipse cx="51" cy="98" rx="2.4" ry="3.6"/>
+      </g>
+      <ellipse cx="30" cy="40" rx="9" ry="5" fill="#fff" opacity=".35" transform="rotate(-28 30 40)"/>
+    </symbol>
+    <symbol id="corazon" viewBox="0 0 24 24" overflow="visible">
+      <path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 2.8 4.5 6.4 4.5c2.1 0 3.6 1.1 4.6 2.6.3.4.9.4 1.2 0 1-1.5 2.5-2.6 4.6-2.6 3.6 0 5.5 3.8 4 7.2C19.5 16.4 12 21 12 21z" fill="#f9d0dc"/>
+    </symbol>
+  </defs>
+
+  <!-- fresas -->
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(96 108) rotate(-18) scale(1.05)"/>
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(420 70) rotate(16) scale(.62)" opacity=".85"/>
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(556 292) rotate(24) scale(.92)"/>
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(236 318) rotate(-30) scale(.66)" opacity=".8"/>
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(70 520) rotate(12) scale(.8)" opacity=".9"/>
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(396 540) rotate(-10) scale(1.1)"/>
+  <use href="#fresa" x="-45" y="-56" width="90" height="112" transform="translate(588 560) rotate(30) scale(.5)" opacity=".75"/>
+
+  <!-- corazones -->
+  <use href="#corazon" x="-12" y="-12" width="24" height="24" transform="translate(236 120) rotate(-14) scale(1.2)"/>
+  <use href="#corazon" x="-12" y="-12" width="24" height="24" transform="translate(300 196) rotate(12) scale(.7)" opacity=".8"/>
+  <use href="#corazon" x="-12" y="-12" width="24" height="24" transform="translate(468 410) rotate(10) scale(1.1)"/>
+  <use href="#corazon" x="-12" y="-12" width="24" height="24" transform="translate(172 450) rotate(-20) scale(.9)" opacity=".85"/>
+  <use href="#corazon" x="-12" y="-12" width="24" height="24" transform="translate(30 300) rotate(16) scale(.75)" opacity=".8"/>
+</svg>

@@ -1,0 +1,376 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #060608; font-family: Inter, sans-serif; }
+    #root * { box-sizing: border-box; }
+    .layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+
+    /* ---------- Estudio ---------- */
+    .wall { position: absolute; left: -900px; top: -900px; width: 2900px; height: 3800px;
+      background:
+        radial-gradient(ellipse 38% 26% at 40% 44%, #1d1c24 0%, #121117 45%, rgba(10,10,13,0) 100%),
+        linear-gradient(180deg, #050506 0%, #0b0b0f 55%, #0e0e12 100%); }
+    .floor { position: absolute; left: -900px; top: 1060px; width: 2900px; height: 1800px;
+      background:
+        radial-gradient(ellipse 22% 9% at 43.5% 11%, rgba(255,255,255,.075), rgba(255,255,255,0) 100%),
+        linear-gradient(180deg, rgba(14,14,18,0) 0%, #101014 12%, #0c0c0f 40%, #070708 100%); }
+    .spill { position: absolute; left: 60px; top: 560px; width: 760px; height: 760px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,0,58,.10), rgba(196,0,58,0) 70%); }
+
+    /* ---------- Módulo Close Connect de 7 cm ---------- */
+    .ccw { position: absolute; perspective: 900px; }
+    .ccd { position: absolute; inset: 0; transform-style: preserve-3d; }
+    .ccd-edge { position: absolute; inset: 0; border-radius: 50%; background: #2b2160; border: 1px solid rgba(190,170,255,.25); }
+    .ccd-face { position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+      background: radial-gradient(circle at 38% 30%, #3d2c96 0%, #261a6a 48%, #160f42 100%);
+      box-shadow: inset 0 0 0 .35em rgba(200,185,255,.25); }
+    .ccd-ring { position: absolute; inset: 3.5em; border-radius: 50%; border: .45em solid rgba(170,150,255,.55); }
+    .ccd-nfc { position: absolute; left: 39em; top: 13em; width: 22em; height: 11em; border-radius: 6em; border: .55em solid rgba(255,255,255,.9);
+      display: flex; align-items: center; justify-content: center; }
+    .ccd-nfc svg { width: 9em; height: 9em; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+    .ccd-logo { position: absolute; left: 17em; top: 31em; width: 66em; }
+    .ccd-t1 { position: absolute; left: 0; right: 0; top: 66em; text-align: center; color: #fff; font: 700 6.2em/1 Montserrat, sans-serif; letter-spacing: .02em; }
+    .ccd-t2 { position: absolute; left: 0; right: 0; top: 76em; text-align: center; color: rgba(255,255,255,.85); font: 400 4.3em/1 Montserrat, sans-serif; }
+
+    /* ---------- Módulo PRO Besos con Crema (10 cm, acrílico 3 mm) ---------- */
+    .modw { position: absolute; left: 70px; top: 690px; width: 520px; height: 520px; perspective: 1600px; }
+    .mod { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-16deg); }
+    .mod-edge { position: absolute; inset: 0; border-radius: 50%;
+      background: linear-gradient(90deg, rgba(120,10,40,.9), rgba(255,190,205,.85) 72%, rgba(255,255,255,.98)); }
+    .mod-face { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; transform: translateZ(0); }
+    .mod-face img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .mod-gloss { position: absolute; inset: 0; border-radius: 50%;
+      background: radial-gradient(ellipse 60% 45% at 30% 22%, rgba(255,255,255,.16), rgba(255,255,255,0) 70%),
+                  linear-gradient(200deg, rgba(255,255,255,0) 55%, rgba(0,0,0,.18)); }
+    .mod-sweep { position: absolute; top: -10%; left: 0; width: 60%; height: 120%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 20%, rgba(255,255,255,.34) 50%, rgba(255,255,255,0) 80%); mix-blend-mode: screen; }
+    .base { position: absolute; left: 66px; top: 1112px; width: 450px; height: 150px; perspective: 900px; }
+    .base-top { position: absolute; inset: 0; border-radius: 22px; transform: rotateX(74deg);
+      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+      border: 2px solid rgba(255,255,255,.55); box-shadow: inset 0 0 22px rgba(255,255,255,.16), 0 0 1px rgba(255,255,255,.6); }
+    .base-lip { position: absolute; left: 34px; right: 34px; top: 92px; height: 9px; border-radius: 4px;
+      background: linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,.8) 62%, rgba(255,255,255,.28)); }
+    .base-shadow { position: absolute; left: 40px; top: 1196px; width: 520px; height: 70px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
+    .refl { position: absolute; left: 70px; top: 1222px; width: 520px; height: 520px; perspective: 1600px; opacity: .13;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 38%); mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 38%); }
+    .refl .mod { transform: scaleY(-1) rotateY(-16deg); }
+
+    /* ---------- Ondas NFC ---------- */
+    .nfc { position: absolute; left: 470px; top: 640px; width: 260px; height: 260px; }
+    .nfc svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .nfc path { fill: none; stroke: #fff; stroke-width: 7; stroke-linecap: round; }
+
+    /* ---------- iPhone ---------- */
+    .phw { position: absolute; left: 610px; top: 600px; width: 400px; height: 805px; transform-origin: 50% 50%; }
+    .ph { position: absolute; inset: 0; filter: drop-shadow(0 50px 50px rgba(0,0,0,.7)) drop-shadow(0 8px 14px rgba(0,0,0,.55)); }
+    .ph-frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .scr { position: absolute; left: 23.4px; top: 19.6px; width: 353px; height: 765px; border-radius: 44px; overflow: hidden; background: #000; }
+    .lp { position: absolute; left: 0; top: 0; width: 393px; height: 852px; transform: scale(0.8982); transform-origin: 0 0; overflow: hidden;
+      font-family: Inter, sans-serif; color: #4a1d2e; background: radial-gradient(ellipse 90% 60% at 20% 10%, #17151c, #050506 70%); }
+    .lpc { position: absolute; inset: 0; background: #fff8fa; }
+    .lp-bg { position: absolute; inset: 0; background-image: url(assets/fresas-bg.svg); background-size: 520px; background-position: center top; background-repeat: repeat;
+      -webkit-mask-image: radial-gradient(ellipse 62% 52% at 50% 52%, transparent 18%, rgba(0,0,0,.55) 62%, #000 100%);
+      mask-image: radial-gradient(ellipse 62% 52% at 50% 52%, transparent 18%, rgba(0,0,0,.55) 62%, #000 100%); }
+    .lp-veil { position: absolute; inset: 0; background: rgba(255,255,255,.2); }
+    .lp-status { position: absolute; left: 0; right: 0; top: 0; height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 6px 30px 0 44px; font: 600 16px/1 Inter, sans-serif; color: #1b1b1f; z-index: 3; }
+    .lp-status .ic { display: flex; gap: 6px; align-items: center; }
+    .lp-page { position: absolute; left: 0; right: 0; top: 0; padding: 78px 24px 0; display: flex; flex-direction: column; gap: 26px; }
+    .lp-profile { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .lp-logo { width: 208px; height: 208px; border-radius: 36px; box-shadow: 0 18px 40px -14px rgba(184,29,86,.45); display: block; }
+    .lp-desc { margin: 0; font-size: 17px; line-height: 1.55; color: #7a4f5f; text-align: center; }
+    .lp-btns { display: flex; flex-direction: column; gap: 14px; }
+    .btn { position: relative; height: 56px; border-radius: 999px; background: #fff8fa; display: flex; align-items: center; justify-content: center; gap: 12px;
+      font: 600 17px/1.2 Inter, sans-serif; letter-spacing: .01em; color: #4a1d2e; overflow: hidden;
+      box-shadow: 7px 7px 16px rgba(184,29,86,.26), -7px -7px 16px #ffffff; }
+    .btn svg { width: 22px; height: 22px; fill: none; stroke: #b81d56; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .btn .press { position: absolute; inset: 0; border-radius: 999px; opacity: 0;
+      box-shadow: inset 5px 5px 12px rgba(184,29,86,.30), inset -5px -5px 12px #ffffff; background: #fbeef2; }
+    .btn .rip { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; background: rgba(236,127,163,.45); opacity: 0; }
+    .btn .lbl, .btn svg { position: relative; z-index: 1; }
+    .lp-foot { position: absolute; left: 0; right: 0; bottom: 26px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .lp-ask { font-size: 13px; color: #7a4f5f; }
+    .lp-cta { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(74,29,46,.16);
+      font: 600 13px/1 Inter, sans-serif; color: #4a1d2e; background: #fff8fa; }
+    .lp-pow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: .02em; color: #7a4f5f; }
+    .lp-pow img { height: 16px; }
+    .finger { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+      background: radial-gradient(circle at 45% 40%, rgba(90,60,80,.42), rgba(60,35,50,.30)); border: 3px solid rgba(255,255,255,.95);
+      box-shadow: 0 6px 18px rgba(60,20,40,.35), 0 0 0 1px rgba(60,20,40,.25); opacity: 0; z-index: 6; }
+    .toast { position: absolute; left: 50%; top: 668px; width: 290px; margin-left: -145px; height: 50px; border-radius: 25px; background: rgba(30,22,28,.92);
+      display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font: 600 15px/1 Inter, sans-serif; opacity: 0; z-index: 5; }
+    .toast i { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .toast svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .loader { position: absolute; inset: 0; background: #fff8fa; display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 4; }
+    .loader svg { width: 92px; overflow: visible; }
+    .banner { position: absolute; left: 12px; right: 12px; top: 60px; height: 76px; border-radius: 22px; background: rgba(242,240,246,.94);
+      display: flex; align-items: center; gap: 12px; padding: 0 14px; z-index: 8; opacity: 0; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    .banner .bi { width: 42px; height: 42px; border-radius: 11px; background: linear-gradient(135deg, #6d3df5, #9b7bff); display: flex; align-items: center; justify-content: center; flex: none; }
+    .banner .bi svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+    .banner b { display: block; font: 700 15px/1.2 Inter, sans-serif; color: #111; }
+    .banner span { display: block; font: 400 13.5px/1.25 Inter, sans-serif; color: #333; }
+    .scr-glare { position: absolute; inset: 0; z-index: 9; pointer-events: none;
+      background: linear-gradient(125deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 32%); }
+
+    /* ---------- Insignias de cada red (pantalla, fuera de la cámara) ---------- */
+    .bdg { position: absolute; left: 722px; width: 136px; height: 136px; margin-top: -68px; opacity: 0; }
+    .bdg .c { position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 18px 40px rgba(0,0,0,.55); }
+    .bdg svg { width: 66px; height: 66px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .bdg .t { position: absolute; left: 50%; top: 150px; width: 230px; margin-left: -115px; text-align: center; color: #f4f2f7; font: 600 30px/1.15 Outfit, sans-serif; }
+    .bdg .t small { display: block; font: 400 24px/1.3 Outfit, sans-serif; color: #b9b4c6; margin-top: 4px; }
+    #bdg-wa .c { background: #25d366; }
+    #bdg-ig .c { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+    #bdg-fb .c { background: #1877f2; }
+    .bdg-link { position: absolute; left: 652px; top: 0; height: 4px; width: 76px; border-radius: 2px; background: linear-gradient(90deg, rgba(236,127,163,0), rgba(236,127,163,.9)); transform-origin: 0 50%; opacity: 0; }
+
+    /* ---------- Sello, viñeta y grano ---------- */
+    .vig { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 48%, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%); }
+    .seal { position: absolute; left: 64px; top: 150px; width: 200px; opacity: .40; mix-blend-mode: screen; filter: grayscale(.35) contrast(1.05); }
+    .grain { position: absolute; inset: 0; opacity: .085; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.6 -.3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  </style>
+
+  <div id="root" data-composition-id="stage" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div class="layer" id="far"><div class="wall"></div><div class="spill"></div></div>
+
+    <div class="layer" id="cam">
+      <div class="floor"></div>
+      <div class="ccw" data-layout-ignore id="cc-b3" style="left:-130px;top:1105px;width:180px;height:180px;font-size:1.80px;filter:blur(3.0px)">
+        <div class="ccd" style="transform:rotateX(76deg) rotateZ(10deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+      <div class="ccw" data-layout-ignore id="cc-b1" style="left:615px;top:1080px;width:210px;height:210px;font-size:2.10px;filter:blur(3.0px)">
+        <div class="ccd" style="transform:rotateX(76deg) rotateZ(-12deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+      <div class="ccw" data-layout-ignore id="cc-b2" style="left:915px;top:1105px;width:190px;height:190px;font-size:1.90px;filter:blur(3.5px)">
+        <div class="ccd" style="transform:rotateX(77deg) rotateZ(22deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+      <div class="ccw" data-layout-ignore id="cc-m2" style="left:30px;top:1290px;width:300px;height:300px;font-size:3.00px;filter:blur(1.0px)">
+        <div class="ccd" style="transform:rotateX(68deg) rotateZ(-20deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+      <div class="ccw" data-layout-ignore id="cc-m1" style="left:740px;top:1270px;width:320px;height:320px;font-size:3.20px;filter:blur(1.2px)">
+        <div class="ccd" style="transform:rotateX(68deg) rotateZ(25deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+      <div class="refl" aria-hidden="true"><div class="mod"><div class="mod-face"><img src="assets/modulo-besos-arte.png" alt=""></div></div></div>
+      <div class="base-shadow"></div>
+      <div class="modw" id="modw">
+        <div class="mod">
+          <i class="mod-edge" style="transform:translate3d(13.5px,2.7px,-18px)"></i>
+          <i class="mod-edge" style="transform:translate3d(12.0px,2.4px,-16px)"></i>
+          <i class="mod-edge" style="transform:translate3d(10.5px,2.1px,-14px)"></i>
+          <i class="mod-edge" style="transform:translate3d(9.0px,1.8px,-12px)"></i>
+          <i class="mod-edge" style="transform:translate3d(7.5px,1.5px,-10px)"></i>
+          <i class="mod-edge" style="transform:translate3d(6.0px,1.2px,-8px)"></i>
+          <i class="mod-edge" style="transform:translate3d(4.5px,0.9px,-6px)"></i>
+          <i class="mod-edge" style="transform:translate3d(3.0px,0.6px,-4px)"></i>
+          <i class="mod-edge" style="transform:translate3d(1.5px,0.3px,-2px)"></i>
+          <div class="mod-face"><img src="assets/modulo-besos-arte.png" alt="Módulo PRO Besos con crema"><div class="mod-gloss"></div><div class="mod-sweep" id="sweep"></div></div>
+        </div>
+      </div>
+      <div class="base" id="base"><div class="base-top"></div><div class="base-lip"></div></div>
+
+      <div class="nfc" id="nfc">
+        <svg viewBox="0 0 260 260"><path id="w1" d="M40 95 Q62 130 40 165"/><path id="w2" d="M78 70 Q114 130 78 190"/><path id="w3" d="M118 45 Q168 130 118 215"/></svg>
+      </div>
+
+      <div class="phw" id="phw">
+        <div class="ph">
+          <div class="scr">
+            <div class="lp" id="lp">
+              <div class="lpc" id="lpc">
+              <div class="lp-bg"></div><div class="lp-veil"></div>
+              <div class="lp-status"><span>9:41</span><span class="ic">
+                <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1b1b1f"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="#1b1b1f"/><rect x="10" y="3" width="3" height="9" rx="1" fill="#1b1b1f"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1b1b1f"/></svg>
+                <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.5 6.9a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1 4.4a10 10 0 0 1 14 0l-1.4 1.4a8 8 0 0 0-11.2 0z" fill="#1b1b1f"/></svg>
+                <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="#1b1b1f" opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2" fill="#1b1b1f"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="#1b1b1f" opacity=".45"/></svg>
+              </span></div>
+              <div class="lp-page">
+                <div class="lp-profile" id="lp-profile">
+                  <img class="lp-logo" id="lp-logo" src="assets/besos-con-crema-logo.webp" alt="Besos con crema">
+                  <p class="lp-desc" id="lp-desc">Escríbenos o síguenos en redes.</p>
+                </div>
+                <div class="lp-btns">
+                  <div class="btn" id="btn-wa"><span class="press"></span><span class="rip"></span>
+                    <svg viewBox="0 0 24 24"><path d="M12 3.4a8.6 8.6 0 0 0-7.4 13l-1.1 4.2 4.3-1.1A8.6 8.6 0 1 0 12 3.4z"/><path d="M9.1 8.2c-.4.5-.5 1.2-.2 1.9.8 1.8 2.3 3.2 4.1 4 .7.3 1.4.2 1.9-.3l.4-.5c.2-.3.2-.6-.1-.8l-1.3-.8c-.2-.1-.5-.1-.7.1l-.5.5c-1-.4-1.8-1.2-2.3-2.2l.5-.5c.2-.2.2-.5.1-.7l-.8-1.3c-.2-.3-.5-.3-.8-.1z"/></svg>
+                    <span class="lbl">Escríbenos por WhatsApp</span></div>
+                  <div class="btn" id="btn-ig"><span class="press"></span><span class="rip"></span>
+                    <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".7" fill="#b81d56" stroke="none"/></svg>
+                    <span class="lbl">Instagram</span></div>
+                  <div class="btn" id="btn-fb"><span class="press"></span><span class="rip"></span>
+                    <svg viewBox="0 0 24 24"><path d="M14.5 21v-8h2.7l.4-3.2h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.5c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.4H8.8V13h2.7v8"/></svg>
+                    <span class="lbl">Facebook</span></div>
+                </div>
+              </div>
+              <div class="lp-foot">
+                <span class="lp-ask">¿Quieres esto para tu negocio?</span>
+                <span class="lp-cta">Descúbrelo aquí <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#6d3df5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                <span class="lp-pow"><img src="assets/close-connect-isotipo.svg" alt="">Powered by Close Connect</span>
+              </div>
+              <div class="toast" id="toast-wa"><i style="background:#25d366"><svg viewBox="0 0 24 24"><path d="M12 3.4a8.6 8.6 0 0 0-7.4 13l-1.1 4.2 4.3-1.1A8.6 8.6 0 1 0 12 3.4z"/></svg></i>Abriendo WhatsApp…</div>
+              <div class="toast" id="toast-ig"><i style="background:#d6249f"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></svg></i>Abriendo Instagram…</div>
+              <div class="toast" id="toast-fb"><i style="background:#1877f2"><svg viewBox="0 0 24 24"><path d="M14.5 21v-8h2.7l.4-3.2h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.5c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.4H8.8V13h2.7v8"/></svg></i>Abriendo Facebook…</div>
+              <div class="loader" id="loader">
+                <svg viewBox="0 0 64 40"><defs><linearGradient id="st-uv" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6d3df5"/><stop offset="1" stop-color="#9b7bff"/></linearGradient></defs>
+                  <g fill="none" stroke="url(#st-uv)" stroke-width="5.6" stroke-linecap="round"><path d="M25.7 12.8A12 12 0 1 0 25.7 31.2"/><path d="M49.7 12.8A12 12 0 1 0 49.7 31.2"/></g>
+                  <path id="ld-star" d="M30.5 1.5C31 5 32.4 6.4 36 7 32.4 7.6 31 9 30.5 12.5 30 9 28.6 7.6 25 7 28.6 6.4 30 5 30.5 1.5Z" fill="#6d3df5"/>
+                  <g transform="translate(42 22) scale(.5) translate(-12 -12)"><path id="ld-heart" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 2.8 4.5 6.4 4.5c2.1 0 3.6 1.1 4.6 2.6.3.4.9.4 1.2 0 1-1.5 2.5-2.6 4.6-2.6 3.6 0 5.5 3.8 4 7.2C19.5 16.4 12 21 12 21z" fill="#ec7fa3"/></g>
+                </svg>
+              </div>
+              </div>
+              <div class="banner" id="banner">
+                <div class="bi"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></div>
+                <div><b>Etiqueta NFC</b><span>Abrir besosconcrema.closeconnectmx.com</span></div>
+              </div>
+              <div class="finger" id="finger"></div>
+            </div>
+            <div class="scr-glare"></div>
+          </div>
+          <img class="ph-frame" data-layout-allow-occlusion src="assets/iphone-frame.png" alt="iPhone">
+        </div>
+      </div>
+    </div>
+
+    <div class="layer" id="near">
+      <div class="ccw" data-layout-ignore id="cc-n1" style="left:-260px;top:1470px;width:640px;height:640px;font-size:6.40px;filter:blur(9px)">
+        <div class="ccd" style="transform:rotateX(60deg) rotateZ(15deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+      <div class="ccw" data-layout-ignore id="cc-n2" style="left:760px;top:1580px;width:560px;height:560px;font-size:5.60px;filter:blur(11px)">
+        <div class="ccd" style="transform:rotateX(62deg) rotateZ(-30deg)"><i class="ccd-edge" style="transform:translateZ(-2px)"></i><i class="ccd-edge" style="transform:translateZ(-4px)"></i><i class="ccd-edge" style="transform:translateZ(-6px)"></i><i class="ccd-edge" style="transform:translateZ(-8px)"></i><i class="ccd-edge" style="transform:translateZ(-10px)"></i>
+          <div class="ccd-face"><span class="ccd-ring"></span><span class="ccd-nfc"><svg viewBox="0 0 24 24"><path d="M9 9.5c.8.8.8 4.2 0 5M12 7.5c1.6 1.6 1.6 7.4 0 9M15 5.5c2.4 2.4 2.4 10.6 0 13"/></svg></span><img class="ccd-logo" src="assets/close-connect-logo.png" alt=""><span class="ccd-t1">ACERCA TU CELULAR</span><span class="ccd-t2">y conoce todo de nosotros</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bdg-link" id="lk"></div>
+    <div class="bdg" id="bdg-wa"><div class="c"><svg viewBox="0 0 24 24"><path d="M12 3.4a8.6 8.6 0 0 0-7.4 13l-1.1 4.2 4.3-1.1A8.6 8.6 0 1 0 12 3.4z"/><path d="M9.1 8.2c-.4.5-.5 1.2-.2 1.9.8 1.8 2.3 3.2 4.1 4 .7.3 1.4.2 1.9-.3l.4-.5c.2-.3.2-.6-.1-.8l-1.3-.8c-.2-.1-.5-.1-.7.1l-.5.5c-1-.4-1.8-1.2-2.3-2.2l.5-.5c.2-.2.2-.5.1-.7l-.8-1.3c-.2-.3-.5-.3-.8-.1z"/></svg></div><div class="t">WhatsApp<small>Chat directo</small></div></div>
+    <div class="bdg" id="bdg-ig"><div class="c"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="#fff" stroke="none"/></svg></div><div class="t">Instagram<small>@besos.con.crema</small></div></div>
+    <div class="bdg" id="bdg-fb"><div class="c"><svg viewBox="0 0 24 24"><path d="M14.5 21v-8h2.7l.4-3.2h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.5c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.4H8.8V13h2.7v8"/></svg></div><div class="t">Facebook<small>Síguenos</small></div></div>
+
+    <div class="vig"></div>
+    <img class="seal" src="assets/close-connect-logo.png" alt="Close Connect">
+    <div class="grain"></div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // Cámara: escala desde la esquina superior izquierda. near = primer plano (más paralaje), far = pared (menos).
+      const CAM = {
+        hero:  { scale: 1.3, x: 111, y: -248 },
+        wide:  { scale: 1.0, x: 0,   y: 0 },
+        phone: { scale: 1.3, x: -653, y: -303 },
+        end:   { scale: 1.04, x: -10, y: -30 },
+      };
+      const par = (s, k) => ({ scale: 1 + (s.scale - 1) * k, x: s.x * k, y: s.y * k });
+      function camTo(state, at, dur, ease) {
+        const s = CAM[state];
+        tl.to("#cam", { ...s, duration: dur, ease }, at);
+        tl.to("#near", { ...par(s, 1.35), duration: dur, ease }, at);
+        tl.to("#far", { ...par(s, 0.55), duration: dur, ease }, at);
+      }
+      tl.set("#cam", CAM.hero, 0); tl.set("#near", par(CAM.hero, 1.35), 0); tl.set("#far", par(CAM.hero, 0.55), 0);
+      // Leve dolly durante el hero para que el plano viva.
+      tl.to("#cam", { scale: 1.33, x: 101, y: -277, duration: 2.6, ease: "none" }, 0);
+      tl.to("#near", { ...par({ scale: 1.33, x: 101, y: -277 }, 1.35), duration: 2.6, ease: "none" }, 0);
+
+      // 1 · Barrido de luz por el acrílico
+      tl.set("#sweep", { xPercent: -120 }, 0);
+      tl.to("#sweep", { xPercent: 200, duration: 1.5, ease: "power2.inOut" }, 0.25);
+
+      // 2 · Abre a plano general y entra el iPhone
+      tl.set("#phw", { x: 760, rotation: 4, filter: "blur(0px)" }, 0);
+      camTo("wide", 2.55, 1.0, "power2.inOut");
+      tl.fromTo("#phw", { x: 760, rotation: 4 }, { x: 0, rotation: -8, duration: 0.9, ease: "expo.out" }, 2.7);
+      tl.fromTo("#phw", { filter: "blur(10px)" }, { filter: "blur(0px)", duration: 0.45, ease: "power2.out" }, 2.75);
+
+      // Ondas NFC: tres pulsos del módulo al teléfono
+      function waves(at, n, peak) {
+        for (let k = 0; k < n; k++) {
+          ["#w1", "#w2", "#w3"].forEach((w, i) => {
+            const t = at + k * 0.55 + i * 0.12;
+            tl.fromTo(w, { opacity: 0 }, { opacity: peak, duration: 0.16, ease: "power1.out" }, t);
+            tl.to(w, { opacity: 0, duration: 0.3, ease: "power1.in" }, t + 0.24);
+          });
+        }
+      }
+      tl.set(["#w1", "#w2", "#w3"], { opacity: 0 }, 0);
+      waves(3.35, 3, 0.95);
+
+      // 3 · Se enciende la pantalla: notificación NFC → toque → loader → landing
+      tl.set(["#loader", "#toast-wa", "#toast-ig", "#toast-fb", "#finger", "#banner"], { opacity: 0 }, 0);
+      tl.fromTo("#lpc", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+      tl.fromTo("#banner", { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.55, ease: "expo.out" }, 4.45);
+      function tap(x, y, at, pressSel) {
+        tl.fromTo("#finger", { x, y: y + 60, opacity: 0, scale: 1.25 }, { y, opacity: 1, scale: 1, duration: 0.28, ease: "power3.out" }, at - 0.3);
+        tl.to("#finger", { scale: 0.82, duration: 0.12, ease: "power2.in" }, at);
+        tl.to("#finger", { scale: 1, duration: 0.18, ease: "power2.out" }, at + 0.12);
+        tl.to("#finger", { opacity: 0, duration: 0.25, ease: "power1.in" }, at + 0.42);
+        if (pressSel) {
+          tl.to(pressSel + " .press", { opacity: 1, duration: 0.1, ease: "power1.out" }, at);
+          tl.to(pressSel, { scale: 0.975, duration: 0.12, ease: "power2.in" }, at);
+          tl.to(pressSel, { scale: 1, duration: 0.2, ease: "power2.out" }, at + 0.14);
+          tl.to(pressSel + " .press", { opacity: 0, duration: 0.25, ease: "power1.in" }, at + 0.2);
+          tl.fromTo(pressSel + " .rip", { scale: 0.2, opacity: 0.9 }, { scale: 3.4, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, at + 0.02);
+        }
+      }
+      tl.set(".rip", { opacity: 0, scale: 0.2 }, 0);
+      tap(196, 100, 5.15, null);
+      tl.to("#banner", { scale: 0.96, duration: 0.1 }, 5.15);
+      tl.to("#banner", { opacity: 0, y: -40, duration: 0.25, ease: "power3.in" }, 5.3);
+      tl.to("#loader", { opacity: 1, duration: 0.2 }, 5.32);
+      tl.to("#lpc", { opacity: 1, duration: 0.01 }, 5.5);
+      tl.fromTo("#ld-heart", { scale: 0.86, transformOrigin: "50% 50%" }, { scale: 1.14, duration: 0.2, ease: "power2.out", yoyo: true, repeat: 3 }, 5.4);
+      tl.fromTo("#ld-star", { rotation: 0, scale: 0.8, transformOrigin: "50% 50%" }, { rotation: 20, scale: 1.15, duration: 0.6, ease: "sine.inOut" }, 5.4);
+      tl.to("#loader", { opacity: 0, duration: 0.3, ease: "power1.out" }, 6.0);
+      tl.fromTo("#lp-logo", { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" }, 6.0);
+      tl.fromTo("#lp-desc", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.15);
+      ["#btn-wa", "#btn-ig", "#btn-fb"].forEach((b, i) => tl.fromTo(b, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 6.1 + i * 0.07));
+
+      // 4 · Empuje de cámara al teléfono
+      camTo("phone", 6.65, 1.0, "power2.inOut");
+      tl.to("#phw", { rotation: 0, duration: 1.0, ease: "power2.inOut" }, 6.65);
+      tl.fromTo("#modw, #base, #nfc", { filter: "blur(0px)" }, { filter: "blur(7px)", duration: 1.0, ease: "power2.inOut" }, 6.65);
+
+      // 5 · Los tres taps: botón → onda → insignia de la red → aviso "Abriendo…"
+      const TAPS = [
+        { btn: "#btn-wa", y: 385, at: 7.95, bdg: "#bdg-wa", toast: "#toast-wa", sy: 952 },
+        { btn: "#btn-ig", y: 455, at: 9.95, bdg: "#bdg-ig", toast: "#toast-ig", sy: 1034 },
+        { btn: "#btn-fb", y: 525, at: 11.95, bdg: "#bdg-fb", toast: "#toast-fb", sy: 1115 },
+      ];
+      TAPS.forEach((t) => {
+        tap(250, t.y, t.at, t.btn);
+        tl.set(t.bdg, { top: t.sy }, 0);
+        tl.fromTo("#lk", { y: t.sy - 2, scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "expo.out" }, t.at + 0.08);
+        tl.to("#lk", { opacity: 0, duration: 0.3 }, t.at + 0.6);
+        tl.fromTo(t.bdg, { opacity: 0, x: -150, scale: 0.4 }, { opacity: 1, x: 0, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, t.at + 0.12);
+        tl.fromTo(t.bdg + " .t", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, t.at + 0.4);
+        tl.fromTo(t.toast, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, t.at + 0.3);
+        tl.to(t.toast, { opacity: 0, y: 10, duration: 0.25, ease: "power3.in" }, t.at + 1.45);
+        tl.to(t.bdg, { opacity: 0, scale: 0.85, duration: 0.3, ease: "power3.in" }, t.at + 1.55);
+      });
+
+      // 6 · Regreso al plano general
+      camTo("wide", 13.75, 1.1, "power2.inOut");
+      tl.to("#phw", { rotation: -8, duration: 1.1, ease: "power2.inOut" }, 13.75);
+      tl.to("#modw, #base, #nfc", { filter: "blur(0px)", duration: 1.1, ease: "power2.inOut" }, 13.75);
+      tl.set("#sweep", { xPercent: -120 }, 14.5);
+      tl.to("#sweep", { xPercent: 200, duration: 1.4, ease: "power2.inOut" }, 14.6);
+
+      // 7 · Cierre
+      camTo("end", 16.3, 2.6, "sine.inOut");
+      waves(16.5, 3, 0.6);
+
+      window.__timelines["stage"] = tl;
+    })();
+  </script>
+</template>

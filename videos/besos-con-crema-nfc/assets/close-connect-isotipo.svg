@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 40" width="64" height="40" role="img" aria-label="Close Connect">
+  <!-- Isotipo "CC" de Close Connect · PROPUESTA creada a partir de la descripción (dos C con estrella en la primera).
+       No está basado en el archivo del logotipo oficial: ajustar si se recibe el original. -->
+  <defs>
+    <linearGradient id="cc-uv" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6d3df5"/>
+      <stop offset="1" stop-color="#9b7bff"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#cc-uv)" stroke-width="5.6" stroke-linecap="round">
+    <path d="M25.7 12.8A12 12 0 1 0 25.7 31.2"/>
+    <path d="M49.7 12.8A12 12 0 1 0 49.7 31.2"/>
+  </g>
+  <!-- Estrella de cuatro puntas sobre la primera C -->
+  <path d="M30.5 1.5C31 5 32.4 6.4 36 7 32.4 7.6 31 9 30.5 12.5 30 9 28.6 7.6 25 7 28.6 6.4 30 5 30.5 1.5Z" fill="#6d3df5"/>
+</svg>
