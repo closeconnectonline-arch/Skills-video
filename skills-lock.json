@@ -1,0 +1,138 @@
+{
+  "version": 2,
+  "skills": {
+    "cut-mistakes": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/cut-mistakes/SKILL.md",
+      "computedHash": "f7886e411efb7ec0cad51bcda89818e02040a5a2c567c6b622d14cf239457cf2"
+    },
+    "cut-silences": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/cut-silences/SKILL.md",
+      "computedHash": "f91a368ac3ad9c2f65c1db08f2dab687bf5b6f68163e48b200e95a001f9a234c"
+    },
+    "edit-video": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/edit-video/SKILL.md",
+      "computedHash": "59e09c5d9026482cb8f4511c38711e12b7b3acec515b3efe65fd1e54af53411c"
+    },
+    "figma": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/figma/SKILL.md",
+      "computedHash": "c0fa96dcd20130cbb865024a5b2ebaed0330dddd4dd2b9891e3cc3fd63b861f2"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "commit": "57217cf86ba38148a57af9e90d14a4c049558330",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
+    },
+    "hyperframes": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes/SKILL.md",
+      "computedHash": "10efb1144c3ac424135e538fac9fb98c812153c2d017e57e2f4f770994d77550"
+    },
+    "hyperframes-cli": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-cli/SKILL.md",
+      "computedHash": "08fe6ce267a6054500b7da0590c0b5119ff053703785f17ab6c794c54670e544"
+    },
+    "hyperframes-registry": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-registry/SKILL.md",
+      "computedHash": "a3c816f09a2ff43bc1502983a68c3fb4e2bb40c6b70dc065d4c11bd91cfa8740"
+    },
+    "hyperframes-video-beats": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/hyperframes-video-beats/SKILL.md",
+      "computedHash": "616ccaebff1c00cb6fd4db78bee8612022d6ce9fe32d5d74edf4765d8bfaaa63"
+    },
+    "make-a-video": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/make-a-video/SKILL.md",
+      "computedHash": "c5d3c4131b600faa20aa9ef62b36dea94761d2b8e4e4a40b7fb745e3aa4ad3b9"
+    },
+    "media-use": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/media-use/SKILL.md",
+      "computedHash": "d7fd729d60cb4f3ae44aaa7e392d9c1aa59f5ceed9cb839e43bd852516cf18ff"
+    },
+    "remotion-to-hyperframes": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-to-hyperframes/SKILL.md",
+      "computedHash": "38eb75c5c051cfbd74d938fcaa7b57544d8b266ec47d18f02bab1574ef71786b"
+    },
+    "reverse-any-video": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/reverse-any-video/SKILL.md",
+      "computedHash": "ff697348c4f2b0590f156b939fcf7e550c7a17bc40bf210d07e71ccbd42db753"
+    },
+    "short-form-edit": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/short-form-edit/SKILL.md",
+      "computedHash": "d2df7ed8744df6ad65bc23b1814c2b2ef7cd39acdb3e2abe65d70dfc13eded61"
+    },
+    "short-form-video": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/short-form-video/SKILL.md",
+      "computedHash": "c7015a904beb0c6fef7a013ad41755498c17879c6c41906b3096cd7a4c6ed13c"
+    },
+    "slideshow": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/slideshow/SKILL.md",
+      "computedHash": "1f3adb414853a124eb06b767d531048d68573a468b3790dd00bf340fc4a18677"
+    },
+    "style-library": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/style-library/SKILL.md",
+      "computedHash": "93d40d365f8eb6bfcf6bca9ca9c5a5be2a5f16f3302ae59ad6c7c3bfbd9c1049"
+    },
+    "style-sampling": {
+      "source": "heygen-com/hyperframes",
+      "commit": "7b3eda1908e4c69d2bbbbb59cffaa3acdd740ac1",
+      "sourceType": "github",
+      "skillPath": "skills/style-sampling/SKILL.md",
+      "computedHash": "86da7c4f9b678b950c43c9b1ca323ac11e761be91d8ad14feb3cb9043926d20d"
+    },
+    "video-storytelling": {
+      "source": "nateherkai/herk-edit-kit",
+      "commit": "10511e5af86fc47756ea89803b397422e2d89284",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/video-storytelling/SKILL.md",
+      "computedHash": "fbf85717c7264d48c959ea05b5b0f949bea8aeef8c5a94eaed354ec6ae0bb4ee"
+    }
+  }
+}
