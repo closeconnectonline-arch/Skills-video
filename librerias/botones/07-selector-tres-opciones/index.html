@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Selector de tres opciones</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Solo para la demo: centra el componente en la página */
+    html, body { height: 100%; margin: 0; }
+    body { display: grid; place-items: center; font-family: system-ui, sans-serif; background: #111; }
+  </style>
+</head>
+<body>
+  <div class="radio-container">
+    <input checked id="opcion-1" name="plan" type="radio">
+    <label for="opcion-1">Gratis</label>
+    <input id="opcion-2" name="plan" type="radio">
+    <label for="opcion-2">Básico</label>
+    <input id="opcion-3" name="plan" type="radio">
+    <label for="opcion-3">Premium</label>
+    <div class="glider-container">
+      <div class="glider"></div>
+    </div>
+  </div>
+</body>
+</html>

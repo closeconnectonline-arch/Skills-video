@@ -7,11 +7,11 @@
 | Archivo original | `Boton 7 Icono pop up de red social (carpeta Tool tips)` |
 | Clases / selectores principales | `.tooltip-container`, `.tooltip`, `.profile`, `.icon`, `.layer`, `.instagramSVG` |
 | Colores | Naranja Instagram `#e6683c`, gris oscuro `#2a2b2f` |
-| HTML | ⚠️ Pendiente: el archivo original solo traía el CSS. Agrega el HTML en `index.html`. |
+| HTML | ✅ Reconstruido a partir del CSS (íconos de redes: Simple Icons, CC0; otros íconos: Bootstrap Icons, MIT) |
 
 ## Archivos
 - `style.css`: estilos del componente.
-- `index.html`: marcado HTML (pendiente).
+- `index.html`: marcado HTML con una demo. Ábrelo en el navegador para verlo.
 
 ## Uso en un video (HyperFrames)
 Copia el HTML y el CSS dentro de la composición y cambia los colores por los de `marca/colores/tokens.css`.
