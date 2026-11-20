@@ -1,0 +1,14 @@
+/* Variables de marca. Úsalas en webs, componentes y videos.
+   Valores provisionales: reemplázalos por los colores reales (ver paleta.md). */
+:root {
+  --marca-primario: #000000;
+  --marca-secundario: #000000;
+  --marca-acento: #000000;
+  --marca-texto: #000000;
+  --marca-fondo: #ffffff;
+
+  --marca-fuente-titulos: system-ui, sans-serif;
+  --marca-fuente-texto: system-ui, sans-serif;
+
+  --marca-radio: 12px;
+}
