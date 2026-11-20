@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tooltip animado de avatares</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Solo para la demo: centra el componente en la página */
+    html, body { height: 100%; margin: 0; }
+    body { display: grid; place-items: center; font-family: system-ui, sans-serif; background: #f5f5f5; }
+  </style>
+</head>
+<body>
+  <!-- Cambia nombre, cargo y foto en cada .avatar-tooltip__item -->
+  <div class="avatar-tooltip" data-avatar-tooltip>
+    <div class="avatar-tooltip__item">
+      <div class="avatar-tooltip__tip" role="tooltip">
+        <div class="avatar-tooltip__name">Integrante 1</div>
+        <div class="avatar-tooltip__role">Untitled crew</div>
+      </div>
+      <img class="avatar-tooltip__img" src="img/avatar-01.jpg" alt="Integrante 1" width="100" height="100">
+    </div>
+    <div class="avatar-tooltip__item">
+      <div class="avatar-tooltip__tip" role="tooltip">
+        <div class="avatar-tooltip__name">Integrante 2</div>
+        <div class="avatar-tooltip__role">Untitled crew</div>
+      </div>
+      <img class="avatar-tooltip__img" src="img/avatar-02.jpg" alt="Integrante 2" width="100" height="100">
+    </div>
+    <div class="avatar-tooltip__item">
+      <div class="avatar-tooltip__tip" role="tooltip">
+        <div class="avatar-tooltip__name">Integrante 3</div>
+        <div class="avatar-tooltip__role">Untitled crew</div>
+      </div>
+      <img class="avatar-tooltip__img" src="img/avatar-03.jpg" alt="Integrante 3" width="100" height="100">
+    </div>
+    <div class="avatar-tooltip__item">
+      <div class="avatar-tooltip__tip" role="tooltip">
+        <div class="avatar-tooltip__name">Integrante 4</div>
+        <div class="avatar-tooltip__role">Untitled crew</div>
+      </div>
+      <img class="avatar-tooltip__img" src="img/avatar-04.jpg" alt="Integrante 4" width="100" height="100">
+    </div>
+    <div class="avatar-tooltip__item">
+      <div class="avatar-tooltip__tip" role="tooltip">
+        <div class="avatar-tooltip__name">Integrante 5</div>
+        <div class="avatar-tooltip__role">Untitled crew</div>
+      </div>
+      <img class="avatar-tooltip__img" src="img/avatar-05.jpg" alt="Integrante 5" width="100" height="100">
+    </div>
+    <div class="avatar-tooltip__item">
+      <div class="avatar-tooltip__tip" role="tooltip">
+        <div class="avatar-tooltip__name">Integrante 6</div>
+        <div class="avatar-tooltip__role">Untitled crew</div>
+      </div>
+      <img class="avatar-tooltip__img" src="img/avatar-06.jpg" alt="Integrante 6" width="100" height="100">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

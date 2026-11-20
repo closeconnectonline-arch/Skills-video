@@ -1,0 +1,104 @@
+/* Tooltip animado de avatares (reconstrucción del AnimatedTooltip de Aceternity UI)
+   Cambia los colores aquí o enlázalos con marca/colores/tokens.css */
+.avatar-tooltip {
+  --at-size: 56px;            /* diámetro de cada círculo */
+  --at-overlap: -16px;        /* cuánto se enciman (mr-4 negativo) */
+  --at-borde: #ffffff;        /* borde del círculo */
+  --at-tip-fondo: #000000;    /* fondo del tooltip */
+  --at-tip-texto: #ffffff;
+  --at-linea-1: #10b981;      /* línea esmeralda */
+  --at-linea-2: #0ea5e9;      /* línea cielo */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: calc(var(--at-overlap) * -1);
+}
+
+.avatar-tooltip__item {
+  position: relative;
+  margin-right: var(--at-overlap);
+}
+
+.avatar-tooltip__img {
+  position: relative;
+  display: block;
+  width: var(--at-size);
+  height: var(--at-size);
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 9999px;
+  border: 2px solid var(--at-borde);
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+
+.avatar-tooltip__item:hover .avatar-tooltip__img {
+  z-index: 30;
+  transform: scale(1.05);
+}
+
+/* Tooltip: lo anima script.js (resorte de entrada + giro según el mouse) */
+.avatar-tooltip__tip {
+  position: absolute;
+  top: -4rem;
+  left: 50%;
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background: var(--at-tip-fondo);
+  color: var(--at-tip-texto);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.25), 0 8px 10px -6px rgb(0 0 0 / 0.25);
+  transform: translateX(-50%);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.avatar-tooltip__tip.is-visible { display: flex; }
+
+/* Las dos líneas de luz debajo del tooltip */
+.avatar-tooltip__tip::before,
+.avatar-tooltip__tip::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  z-index: 30;
+  height: 1px;
+}
+.avatar-tooltip__tip::before {
+  left: 2.5rem;
+  width: 20%;
+  background: linear-gradient(to right, transparent, var(--at-linea-1), transparent);
+}
+.avatar-tooltip__tip::after {
+  left: 50%;
+  width: 40%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, var(--at-linea-2), transparent);
+}
+
+.avatar-tooltip__name {
+  position: relative;
+  z-index: 30;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--at-tip-texto);
+}
+
+.avatar-tooltip__role {
+  font-size: 0.75rem;
+  color: var(--at-tip-texto);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-tooltip__img { transition: none; }
+}
