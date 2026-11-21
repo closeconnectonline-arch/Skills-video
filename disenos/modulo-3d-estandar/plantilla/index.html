@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulo 3D Estándar · plantilla</title>
+  <link rel="stylesheet" href="../motor/modulo-3d.css">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+  </style>
+</head>
+<body class="m3d-estudio">
+
+  <!-- [EDITAR] data-caras: lista de caras en orden (mínimo 3; con 1 o 2 usa data-frente / data-reverso). Módulo Estándar, tarjeta vertical 5.4 × 8.5 × 0.2 cm con vinil en ambas caras,
+       encajada en una base de MDF de 5 × 2 × 1.2 cm con ranura de 2 mm a todo lo largo.
+       Flota, gira y cambia de diseño cada vez que una cara queda de espaldas -->
+  <div id="modulo" data-modulo-3d
+       data-modelo="estandar"
+       data-base="mdf"
+       data-flotar="8"
+       data-inclinacion="-12"
+       data-velocidad="34"
+       data-titulo="Módulo Estándar · 5.4 × 8.5 cm"
+       data-subtitulo="Base de MDF 5 × 2 × 1.2 cm · arrastra para girar"
+       data-caras='["caras/estandar-01.webp","caras/estandar-02.webp","caras/estandar-03.webp","caras/estandar-04.webp","caras/estandar-05.webp","caras/estandar-06.webp","caras/estandar-07.webp","caras/estandar-08.webp","caras/estandar-09.webp","caras/estandar-10.webp"]'></div>
+
+  <script src="../motor/modulo-3d.js"></script>
+</body>
+</html>
