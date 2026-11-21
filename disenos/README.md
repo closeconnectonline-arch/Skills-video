@@ -26,3 +26,4 @@ disenos/
 | Diseño | Descripción | Origen | Versión |
 |---|---|---|---|
 | [Dj carrusel](dj-carrusel/) | Tarjetas apiladas que pasan a color y despliegan un panel con la información de cada foto | FeyCards (Aceternity Labs) | v1 |
+| [Cartera de tarjetas](cartera-tarjetas/) | Cartera con hasta 3 tarjetas que salen en abanico y revela el balance total calculado | byllzz (Uiverse.io) | v1 |

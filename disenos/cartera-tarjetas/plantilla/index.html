@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cartera de tarjetas · plantilla</title>
+  <!-- Motor: no lo edites; cambia el aspecto con las variables de abajo -->
+  <link rel="stylesheet" href="../motor/cartera-tarjetas.css">
+  <style>
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #eef1ec;
+      padding: 140px 20px 80px;
+      box-sizing: border-box;
+    }
+    /* Personalización (opcional): descomenta y cambia
+    .cartera {
+      --ct-cartera: #1e341e;
+      --ct-bolsillo: #2c4a2c;
+      --ct-costura: #4d6f47;
+      --ct-balance-oculto: #839e7b;
+      --ct-balance: #a7c59e;
+      --ct-ojo: #3be60b;
+      --ct-indicacion: #003087;
+      --ct-fuente: system-ui, sans-serif;
+    } */
+  </style>
+</head>
+<body>
+  <!-- ============ CARTERA DE TARJETAS ============
+       Opciones: data-moneda, data-idioma, data-indicacion (quítalo para ocultar el texto de abajo) -->
+  <div data-cartera-tarjetas data-indicacion="Toca o pasa el cursor para ver el balance" aria-label="Cartera">
+
+    <!-- [EDITAR] Datos: hasta 3 tarjetas. La 1ª queda atrás y la 3ª al frente.
+         El balance total se calcula sumando "saldo" (o fíjalo con "balance": 12345). -->
+    <script type="application/json">
+    {
+      "moneda": "MXN",
+      "idioma": "es-MX",
+      "tituloBalance": "Balance total",
+      "tarjetas": [
+        { "nombre": "Tarjeta 1", "fondo": "#635bff", "texto": "#ffffff", "titular": "Nombre Apellido", "numero": "0000 0000 0000 1111", "saldo": 12450.50 },
+        { "nombre": "Tarjeta 2", "fondo": "#9bd86a", "texto": "#163300", "titular": "Nombre Apellido", "numero": "0000 0000 0000 2222", "saldo": 8300 },
+        { "nombre": "Tarjeta 3", "fondo": "#ffffff", "texto": "#003087", "titular": "Nombre Apellido", "numero": "0000 0000 0000 3333", "saldo": 4110.75 }
+      ]
+    }
+    </script>
+  </div>
+
+  <script src="../motor/cartera-tarjetas.js"></script>
+</body>
+</html>

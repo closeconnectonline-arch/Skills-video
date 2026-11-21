@@ -1,0 +1,239 @@
+/* Cartera de tarjetas · motor v1
+   Origen: diseño de byllzz en Uiverse.io, reconstruido con HTML completo,
+   balance automático y soporte táctil.
+   No edites este archivo por proyecto: cambia el aspecto con las variables --ct-*. */
+
+.cartera {
+  --ct-cartera: #1e341e;          /* fondo interior */
+  --ct-bolsillo: #2c4a2c;         /* bolsillo frontal */
+  --ct-costura: #4d6f47;          /* costura punteada */
+  --ct-balance-oculto: #839e7b;   /* asteriscos y etiqueta */
+  --ct-balance: #a7c59e;          /* balance visible */
+  --ct-ojo: #3be60b;              /* icono del ojo */
+  --ct-indicacion: #003087;       /* texto bajo la cartera */
+  --ct-fuente: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  position: relative;
+  width: 280px;
+  height: 230px;
+  cursor: pointer;
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-family: var(--ct-fuente);
+  transition: transform 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cartera *, .cartera *::before, .cartera *::after { box-sizing: border-box; }
+
+.cartera::after {
+  content: attr(data-indicacion);
+  position: absolute;
+  bottom: -34px;
+  font-style: italic;
+  color: var(--ct-indicacion);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.cartera:not([data-indicacion])::after { content: none; }
+
+@keyframes ct-entrar {
+  0%   { transform: translateY(-100px); opacity: 0; }
+  100% { transform: translateY(0);      opacity: 1; }
+}
+
+.cartera__fondo {
+  position: absolute;
+  bottom: 0;
+  width: 280px;
+  height: 200px;
+  background: var(--ct-cartera);
+  border-radius: 22px 22px 60px 60px;
+  z-index: 5;
+  box-shadow:
+    inset 0 25px 35px rgba(0, 0, 0, 0.4),
+    inset 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Tarjetas ---------- */
+.cartera__tarjeta {
+  position: absolute;
+  width: 260px;
+  height: 140px;
+  left: 10px;
+  border-radius: 16px;
+  padding: 18px;
+  color: #fff;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 -4px 15px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    z-index 0s;
+  animation: ct-entrar 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+.cartera__tarjeta--1 { bottom: 90px; z-index: 10; animation-delay: 0.1s; }
+.cartera__tarjeta--2 { bottom: 65px; z-index: 20; animation-delay: 0.2s; }
+.cartera__tarjeta--3 { bottom: 40px; z-index: 30; animation-delay: 0.3s; }
+
+.cartera__tarjeta-interior {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.cartera__tarjeta-arriba {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.cartera__chip {
+  width: 32px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cartera__tarjeta-abajo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+.cartera__tarjeta-abajo > div { min-width: 0; }
+.cartera__etiqueta {
+  display: block;
+  font-size: 8px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.cartera__valor {
+  display: block;
+  max-width: 90px;
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cartera__numero-caja { text-align: right; }
+.cartera__numero-oculto { font-size: 16px; letter-spacing: 2px; }
+.cartera__numero {
+  display: none;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  font-family: ui-monospace, monospace;
+}
+
+/* Tarjeta clara (fondo blanco o muy claro): la marca el motor */
+.cartera__tarjeta--clara .cartera__chip { background: rgba(0, 0, 0, 0.05); }
+.cartera__tarjeta--clara .cartera__etiqueta { color: #8c979d; opacity: 1; }
+
+/* ---------- Bolsillo y balance ---------- */
+.cartera__bolsillo {
+  position: absolute;
+  bottom: 0;
+  width: 280px;
+  height: 160px;
+  z-index: 40;
+  filter: drop-shadow(0 15px 25px rgba(20, 40, 20, 0.4));
+  pointer-events: none;
+}
+.cartera__bolsillo > svg { display: block; }
+.cartera__bolsillo-forma { fill: var(--ct-bolsillo); }
+.cartera__bolsillo-costura { fill: none; stroke: var(--ct-costura); stroke-width: 1.5; stroke-dasharray: 5 4; }
+
+.cartera__contenido {
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  text-align: center;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.cartera__titulo-balance {
+  color: var(--ct-balance-oculto);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.cartera__balance-caja { position: relative; height: 28px; width: 100%; }
+.cartera__balance-oculto {
+  color: var(--ct-balance-oculto);
+  font-size: 24px;
+  letter-spacing: 4px;
+  transition: 0.3s;
+}
+.cartera__balance {
+  color: var(--ct-balance);
+  font-size: 22px;
+  font-weight: 600;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  white-space: nowrap;
+  transform: translate(-50%, 10px);
+  transition: 0.3s;
+}
+
+.cartera__ojo {
+  margin-top: 2px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  opacity: 0.3;
+  transition: 0.3s;
+}
+.cartera__ojo svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: none;
+  stroke: var(--ct-ojo);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: 0.3s;
+}
+.cartera__ojo-abierto { opacity: 0; transform: scale(0.5); }
+
+/* ---------- Estados ----------
+   Escritorio: :hover · Táctil: .is-abierta (cartera) y .is-activa (tarjeta) */
+.cartera:hover, .cartera.is-abierta { transform: translateY(-5px); }
+.cartera:hover .cartera__ojo, .cartera.is-abierta .cartera__ojo { opacity: 1; }
+
+.cartera:hover .cartera__tarjeta--1, .cartera.is-abierta .cartera__tarjeta--1 { transform: translateY(-75px) rotate(-3deg); }
+.cartera:hover .cartera__tarjeta--2, .cartera.is-abierta .cartera__tarjeta--2 { transform: translateY(-45px) rotate(2deg); }
+.cartera:hover .cartera__tarjeta--3, .cartera.is-abierta .cartera__tarjeta--3 { transform: translateY(-10px); }
+
+.cartera__tarjeta:hover, .cartera__tarjeta.is-activa { z-index: 100 !important; transition-delay: 0s !important; }
+
+.cartera:hover .cartera__tarjeta--1:hover, .cartera .cartera__tarjeta--1.is-activa { transform: translateY(-60px) scale(1.05) rotate(0); }
+.cartera:hover .cartera__tarjeta--2:hover, .cartera .cartera__tarjeta--2.is-activa { transform: translateY(-70px) scale(1.05) rotate(0); }
+.cartera:hover .cartera__tarjeta--3:hover, .cartera .cartera__tarjeta--3.is-activa { transform: translateY(-60px) scale(1.05) rotate(0); }
+
+.cartera__tarjeta:hover .cartera__numero-oculto, .cartera__tarjeta.is-activa .cartera__numero-oculto { display: none; }
+.cartera__tarjeta:hover .cartera__numero,        .cartera__tarjeta.is-activa .cartera__numero        { display: block; }
+
+.cartera:hover .cartera__balance-oculto, .cartera.is-abierta .cartera__balance-oculto { opacity: 0; }
+.cartera:hover .cartera__balance,        .cartera.is-abierta .cartera__balance        { opacity: 1; transform: translate(-50%, 0); }
+.cartera:hover .cartera__ojo-cerrado,    .cartera.is-abierta .cartera__ojo-cerrado    { opacity: 0; transform: scale(0.5); }
+.cartera:hover .cartera__ojo-abierto,    .cartera.is-abierta .cartera__ojo-abierto    { opacity: 1; transform: scale(1.1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cartera, .cartera__tarjeta { animation: none; transition: none; }
+}
