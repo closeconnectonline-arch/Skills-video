@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulo 3D render Pro · plantilla</title>
+  <!-- Motor: no lo edites; cambia el aspecto con las variables de abajo -->
+  <link rel="stylesheet" href="../motor/modulo-3d.css">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    /* Personalización (opcional): descomenta y cambia
+    .m3d { --m3d-diametro: min(68vw, 320px); --m3d-texto: #e9ecef; }
+    .m3d-estudio { --m3d-fondo-1: #2a2d33; --m3d-fondo-2: #0d0e11; } */
+  </style>
+</head>
+<body class="m3d-estudio">
+
+  <!-- ============ MÓDULO 3D ============
+       [EDITAR] data-frente y data-reverso: caras redondas hechas con herramientas/preparar-cara.py
+       data-modelo: "pro" (acrílico Ø10 cm) o "proplus" (PVC Ø7 cm)
+       Opcionales: data-titulo, data-subtitulo, data-controles="no", data-velocidad, data-inicio -->
+  <div data-modulo-3d
+       data-modelo="pro"
+       data-frente="caras/frente.webp"
+       data-reverso="caras/reverso.webp"
+       data-subtitulo="Vinil blanco al frente · vinil negro atrás · arrastra para girar"></div>
+
+  <script src="../motor/modulo-3d.js"></script>
+</body>
+</html>
