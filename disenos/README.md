@@ -30,3 +30,4 @@ disenos/
 | [Módulo 3D render Pro y Pro Plus](modulo-3d-render-pro/) | Módulo circular de acrílico (o PVC) que flota y gira en 3D con un vinil distinto en cada cara | Close Connect (desde cero) | v1 |
 | [Módulo 3D Pro con base](modulo-3d-pro-con-base/) | Módulo Pro girando encajado en una base de acrílico transparente con ranura, con encaje y sombras calculados | Close Connect (desde cero) | v1 |
 | [Módulo 3D Pro con base · ciclo](modulo-3d-pro-ciclo/) | Módulo Pro con base que cambia a un diseño nuevo cada vez que muestra una cara, en ciclo | Close Connect (desde cero) | v1 |
+| [Módulo 3D Pro Plus sin base · ciclo](modulo-3d-proplus-ciclo/) | Copia del Pro ciclo sin base: círculo de acrílico Ø7 cm con dos caras que flota, gira y cambia de diseño en ciclo | Close Connect (desde cero) | v1 |
