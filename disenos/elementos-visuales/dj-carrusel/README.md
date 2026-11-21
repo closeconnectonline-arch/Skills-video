@@ -83,4 +83,4 @@ Copia el marcado y el motor en la composición. Para el render, en vez del mouse
 
 ## Notas
 - Colores y tipografía de marca siguen `[pendiente]` en `marca/`; cuando estén listos, pásalos a las variables `--djc-*`.
-- Componente de origen: [`librerias/tarjetas/01-panel-fey`](../../librerias/tarjetas/01-panel-fey/).
+- Componente de origen: [`librerias/tarjetas/01-panel-fey`](../../../librerias/tarjetas/01-panel-fey/).

@@ -1,0 +1,30 @@
+/* Módulo 3D Close Connect · motor three.js v1 */
+html, body { margin: 0; height: 100%; background: #0b0c0e; }
+.m3t {
+  position: relative; width: 100%; height: 100vh; height: 100dvh; overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #e9ecef;
+}
+.m3t::after { /* grano de película sobre el estudio */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.m3t__lienzo { display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+.m3t__lienzo:active { cursor: grabbing; }
+.m3t__cargando { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; opacity: .6; }
+.m3t__pie {
+  position: absolute; left: 0; right: 0; bottom: max(18px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 1; pointer-events: none;
+}
+.m3t__titulo { text-align: center; line-height: 1.4; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+.m3t__titulo strong { display: block; font-size: 15px; letter-spacing: .4px; }
+.m3t__titulo span { display: block; font-size: 12px; opacity: .62; }
+.m3t__contador { display: block; font-style: normal; font-size: 11px; letter-spacing: .6px; opacity: .8; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.m3t__controles { display: flex; gap: 8px; pointer-events: auto; }
+.m3t__controles button {
+  font: inherit; font-size: 12px; color: #e9ecef; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 8px 15px; cursor: pointer;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); min-height: 34px;
+}
+.m3t__controles button:hover { background: rgba(255,255,255,.12); }
+.m3t__controles button:focus-visible { outline: 2px solid #9fd3ff; outline-offset: 2px; }
+.m3t__controles button[aria-pressed="true"] { background: rgba(255,255,255,.18); }

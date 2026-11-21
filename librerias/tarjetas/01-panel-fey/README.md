@@ -33,7 +33,7 @@ Una foto principal y 5 tarjetas verticales encimadas sobre fondo negro, con un t
 | `mask-b-from-10%` | `mask-image` en `.fey__inner` (por tarjeta, para que las recorridas no se recorten) |
 
 ## Notas
-- Este componente está guardado como plantilla reutilizable en la biblioteca de diseños: [Dj carrusel](../../../disenos/dj-carrusel/).
+- Este componente está guardado como plantilla reutilizable en la biblioteca de diseños: [Dj carrusel](../../../disenos/elementos-visuales/dj-carrusel/).
 - Las fotos no traían datos de cámara (EXIF), así que el panel muestra archivo, tratamiento, escena y formato. Los títulos y descripciones son provisionales.
 - El titular es la traducción del original ("Inspired by the pros. Made for you."); cámbialo por el tuyo.
 - Colores y tipografía de marca siguen `[pendiente]` en `marca/`; cuando estén, reemplaza las variables `--fey-*`.
