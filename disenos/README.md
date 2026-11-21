@@ -29,3 +29,4 @@ disenos/
 | [Cartera de tarjetas](cartera-tarjetas/) | Cartera con hasta 3 tarjetas que salen en abanico y revela el balance total calculado | byllzz (Uiverse.io) | v1 |
 | [Módulo 3D render Pro y Pro Plus](modulo-3d-render-pro/) | Módulo circular de acrílico (o PVC) que flota y gira en 3D con un vinil distinto en cada cara | Close Connect (desde cero) | v1 |
 | [Módulo 3D Pro con base](modulo-3d-pro-con-base/) | Módulo Pro girando encajado en una base de acrílico transparente con ranura, con encaje y sombras calculados | Close Connect (desde cero) | v1 |
+| [Módulo 3D Pro con base · ciclo](modulo-3d-pro-ciclo/) | Módulo Pro con base que cambia a un diseño nuevo cada vez que muestra una cara, en ciclo | Close Connect (desde cero) | v1 |
