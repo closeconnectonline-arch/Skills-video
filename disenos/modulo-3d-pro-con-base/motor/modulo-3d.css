@@ -1,0 +1,159 @@
+/* Módulo 3D render Pro y Pro Plus · motor v1
+   Módulo circular que flota y gira en 3D, con vinil impreso en cada cara.
+   No edites este archivo por proyecto: cambia el aspecto con las variables --m3d-*. */
+
+.m3d {
+  --m3d-diametro: min(68vw, 320px);    /* tamaño en pantalla del Pro (Ø10 cm) */
+  --m3d-texto: #e9ecef;
+  --m3d-fuente: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--m3d-fuente);
+  color: var(--m3d-texto);
+}
+/* Pro Plus (Ø7 cm): 70 % del Pro */
+.m3d[data-modelo="proplus"] { --m3d-diametro: min(48vw, 224px); }
+
+/* Fondo de estudio (opcional): pon la clase en <body> o en un contenedor */
+.m3d-estudio {
+  --m3d-fondo-1: #2a2d33;
+  --m3d-fondo-2: #0d0e11;
+  position: relative;
+  background: radial-gradient(ellipse 70% 55% at 50% 42%, var(--m3d-fondo-1) 0%, var(--m3d-fondo-2) 75%);
+}
+.m3d-estudio::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Escena ---------- */
+.m3d__escena {
+  position: relative;
+  width: calc(var(--m3d-diametro) * 1.45);
+  height: calc(var(--m3d-diametro) * 1.55);
+  perspective: 1400px;
+  display: grid;
+  place-items: center;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.m3d__escena:active { cursor: grabbing; }
+
+.m3d__sombra {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: calc(var(--m3d-diametro) * .8);
+  height: calc(var(--m3d-diametro) * .11);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0,0,0,.85), rgba(0,0,0,0));
+  transform: translateX(-50%);
+  filter: blur(4px);
+}
+
+.m3d__modulo {
+  position: relative;
+  width: var(--m3d-diametro);
+  height: var(--m3d-diametro);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ---------- Caras de vinil ---------- */
+.m3d__cara {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.m3d__luz, .m3d__reflejo {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.m3d__luz { background: #000; opacity: 0; }
+.m3d__reflejo {
+  background: linear-gradient(115deg,
+    rgba(255,255,255,0) 30%,
+    rgba(255,255,255,.55) 46%,
+    rgba(255,255,255,.12) 52%,
+    rgba(255,255,255,0) 64%);
+  background-size: 260% 100%;
+  mix-blend-mode: screen;
+}
+/* Bisel del acrílico alrededor del vinil */
+.m3d__cara::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255,255,255,.55),
+    inset 0 0 0 3px rgba(190,225,240,.18),
+    inset 0 2px 6px rgba(255,255,255,.25);
+}
+
+/* ---------- Canto (segmentos) ---------- */
+.m3d__canto {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ---------- Título y controles ---------- */
+.m3d__titulo { text-align: center; line-height: 1.35; }
+.m3d__titulo strong { display: block; font-size: 15px; letter-spacing: .4px; }
+.m3d__titulo span { font-size: 12px; opacity: .6; }
+
+.m3d__controles { display: flex; gap: 8px; }
+.m3d__controles button {
+  font: inherit;
+  font-size: 12px;
+  color: var(--m3d-texto);
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.m3d__controles button[aria-pressed="true"] { background: rgba(255,255,255,.18); }
+
+/* ---------- Base de acrílico (experimento) ---------- */
+.m3d--con-base .m3d__sombra { display: none; }
+.m3d--con-base .m3d__escena { height: calc(var(--m3d-diametro) * 1.4); }
+.m3d--con-base .m3d__modulo { margin-top: calc(var(--m3d-diametro) * -0.12); }
+.m3d__base {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+}
+.m3d__base--sombra {
+  border-radius: 40%;
+  background: radial-gradient(closest-side, rgba(0,0,0,.42), rgba(0,0,0,.18) 60%, rgba(0,0,0,0));
+  filter: blur(6px);
+}
+.m3d__base--sombra-modulo {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0,0,0,.5), rgba(0,0,0,0));
+  filter: blur(5px);
+}
+/* luz que el acrílico concentra en el piso, en la orilla de su sombra */
+.m3d__base--caustica {
+  box-shadow: 0 0 0 1px rgba(210,245,240,.10), inset 0 0 8px rgba(210,245,240,.10);
+  filter: blur(1px);
+}

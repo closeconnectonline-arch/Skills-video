@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulo 3D Pro con base · plantilla</title>
+  <link rel="stylesheet" href="../motor/modulo-3d.css">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+    .ficha {
+      position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+      font: 11px/1.5 system-ui, sans-serif; color: rgba(233,236,239,.55);
+      text-align: center; width: min(92vw, 520px);
+    }
+  </style>
+</head>
+<body class="m3d-estudio">
+
+  <!-- [EDITAR] data-frente / data-reverso. Medidas por defecto: módulo Ø10 cm de 3 mm sobre base de acrílico 8 × 2.5 × 0.3 cm
+       con ranura de 3 cm × 3 mm al centro -->
+  <div id="modulo" data-modulo-3d
+       data-modelo="pro"
+       data-grosor-mm="3"
+       data-base="acrilico"
+       data-base-largo="8" data-base-ancho="2.5" data-base-grueso="0.3" data-base-radio="0.4"
+       data-ranura-largo="3" data-ranura-ancho="0.3"
+       data-velocidad="28"
+       data-frente="caras/frente-blanco.webp"
+       data-reverso="caras/reverso-negro.webp"
+       data-titulo="Módulo Pro Ø10 cm sobre base de acrílico"
+       data-subtitulo="Base 8 × 2.5 × 0.3 cm · ranura 3 cm × 3 mm · arrastra para girar"></div>
+
+  <div class="ficha" id="ficha"></div>
+
+  <script src="../motor/modulo-3d.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var m = document.getElementById("modulo").m3d.medidas();
+    document.getElementById("ficha").textContent =
+      "El módulo entra " + m.hundidoMm.toFixed(1) + " mm en la ranura y se apoya en sus dos extremos · " +
+      "queda a " + m.holguraMm.toFixed(1) + " mm de la mesa";
+    });
+  </script>
+</body>
+</html>
