@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulo 3D Personal · plantilla</title>
+  <link rel="stylesheet" href="../motor/modulo-3d.css">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+  </style>
+</head>
+<body class="m3d-estudio">
+
+  <!-- [EDITAR] data-caras: lista de caras en orden (mínimo 3; con 1 o 2 usa data-frente / data-reverso). Módulo Personal, tarjeta horizontal 8.5 × 5.4 × 0.2 cm de acrílico con vinil
+       en ambas caras; flota, gira y cambia de diseño cada vez que una cara queda de espaldas -->
+  <div id="modulo" data-modulo-3d
+       data-modelo="personal"
+       data-velocidad="34"
+       data-titulo="Módulo Personal · tarjeta 8.5 × 5.4 cm"
+       data-subtitulo="Acrílico de 2 mm con vinil en ambas caras · arrastra para girar"
+       data-caras='["caras/tarjeta-01.webp","caras/tarjeta-02.webp","caras/tarjeta-03.webp","caras/tarjeta-04.webp","caras/tarjeta-05.webp","caras/tarjeta-06.webp","caras/tarjeta-07.webp","caras/tarjeta-08.webp","caras/tarjeta-09.webp","caras/tarjeta-10.webp","caras/tarjeta-11.webp","caras/tarjeta-12.webp"]'></div>
+
+  <script src="../motor/modulo-3d.js"></script>
+</body>
+</html>

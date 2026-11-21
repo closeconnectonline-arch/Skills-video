@@ -31,3 +31,4 @@ disenos/
 | [Módulo 3D Pro con base](modulo-3d-pro-con-base/) | Módulo Pro girando encajado en una base de acrílico transparente con ranura, con encaje y sombras calculados | Close Connect (desde cero) | v1 |
 | [Módulo 3D Pro con base · ciclo](modulo-3d-pro-ciclo/) | Módulo Pro con base que cambia a un diseño nuevo cada vez que muestra una cara, en ciclo | Close Connect (desde cero) | v1 |
 | [Módulo 3D Pro Plus sin base · ciclo](modulo-3d-proplus-ciclo/) | Copia del Pro ciclo sin base: círculo de acrílico Ø7 cm con dos caras que flota, gira y cambia de diseño en ciclo | Close Connect (desde cero) | v1 |
+| [Módulo 3D Personal](modulo-3d-personal/) | Tarjeta horizontal 8.5 × 5.4 cm de acrílico con vinil en ambas caras que flota, gira y cambia de diseño en ciclo | Close Connect (desde cero) | v1 |
