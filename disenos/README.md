@@ -46,6 +46,7 @@ disenos/
 | [Módulo 3D Pro Plus · three.js](modulos-threejs/modulo-3d-three-proplus-ciclo/) | Pro Plus Ø7 cm de acrílico flotando, con cantos pulidos, softbox y ciclo de diseños | Derivado de `modulo-3d-proplus-ciclo` | v1 |
 | [Módulo 3D Personal · three.js](modulos-threejs/modulo-3d-three-personal/) | Tarjeta 8.5 × 5.4 cm de acrílico flotando, con vinil laminado y ciclo de diseños | Derivado de `modulo-3d-personal` | v1 |
 | [Módulo 3D Estándar · three.js](modulos-threejs/modulo-3d-three-estandar/) | Tarjeta 5.4 × 8.5 cm en base de MDF con grano y canto quemado por láser, con ciclo de diseños | Derivado de `modulo-3d-estandar` | v1 |
+| [Carrusel 3D de módulos](modulos-threejs/carrusel-3d-modulos/) | Pro, Pro Plus, Personal y Estándar en un carrusel 3D en bucle infinito: flotan, giran, cambian de diseño en cada giro y vuelta, se giran con la mano; tus diseños se cambian desde la plantilla | Reconstrucción del *floating can carousel* (thepromptsfactory) con módulos derivados de `modulo-3d-three-*` | v1 |
 
 ### Elementos visuales (`elementos-visuales/`)
 | Diseño | Descripción | Origen | Versión |
