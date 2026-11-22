@@ -7,7 +7,7 @@ Repositorio de trabajo para crear y editar videos con Claude Code, con librería
 | Carpeta | Para qué sirve |
 |---|---|
 | [`.claude/skills/`](.claude/skills/) | Skills de Claude: HyperFrames (crear videos y motion graphics), Herk Edit Kit (editar videos) y find-skills |
-| [`disenos/`](disenos/) | Biblioteca de diseños: elementos visuales completos con motor y plantilla reutilizable, p. ej. Dj carrusel ([catálogo](disenos/README.md)) |
+| [`disenos/`](disenos/) | Biblioteca de diseños: elementos visuales completos con motor y plantilla reutilizable, organizados en módulos con CSS, módulos con three.js y elementos visuales ([catálogo](disenos/README.md)) |
 | [`librerias/`](librerias/) | Componentes web reutilizables: botones, tooltips, tarjetas… ([catálogo](librerias/README.md)) |
 | [`marca/`](marca/) | Identidad de marca: logos, colores, tipografía, imágenes, plantillas, voz y tono ([guía](marca/README.md)) |
 | `skills-lock.json` | Registro de las skills instaladas (para `npx skills update`) |
