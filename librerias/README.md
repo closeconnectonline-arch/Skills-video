@@ -16,7 +16,8 @@ librerias/
 ├── formularios/
 ├── animaciones/
 ├── transiciones/
-└── iconos/
+├── iconos/
+└── fondos/
 ```
 
 Cada componente vive en su propia carpeta con un número y un nombre corto:
