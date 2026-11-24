@@ -64,3 +64,10 @@ modulo-3d-personal/
 - Vinil negro: 1, 5, 7, 11, 12. Vinil blanco: 2, 3, 4, 6, 8, 9, 10.
 - Los diseños 8, 9 y 10 son idénticos.
 - En el 11 (Inmobiliaria), el recuadro blanco detrás de la palabra viene en el diseño. En el 5 y el 7, el ícono NFC gris oscuro casi no se ve sobre el negro.
+
+### v3 (2026-11-24)
+Motor optimizado v3 (las cuatro copias `*-optimizado` comparten el mismo motor). Opcional y compatible con v2:
+- `data-cuadros="30"`: el giro automático va a un ritmo fijo y los módulos de la página se turnan los cuadros; al arrastrar vuelve a 60.
+- `data-luz-reparto="3"`: el sombreado del canto y la base se reparte entre cuadros (siempre con el ángulo actual).
+- Siempre: fuera de pantalla oculta sus piezas (`.m3d--fuera`), así el navegador no carga con sus capas 3D; transparencias a 2 decimales y reflejo en pasos de 1 %.
+Medido en el catálogo de Close Connect (390 px, CPU ×4, sin GPU): inicio 20 → 27 cuadros/s, modelos 19 → 49, paquetes 13 → 30. Comparado píxel por píxel con v2 en 5 ángulos: diferencia máxima 3 sobre 255.

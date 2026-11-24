@@ -59,3 +59,10 @@ modulo-3d-pro-ciclo/
 ## Notas
 - Con un número par de diseños, el frente siempre muestra los nones (1, 3, 5…) y el reverso los pares. Con un número impar se van alternando en cada vuelta.
 - La velocidad (`data-velocidad`, 34 °/s) marca cada cuánto aparece un diseño nuevo: uno cada ~5 segundos.
+
+### v3 (2026-11-24)
+Motor optimizado v3 (las cuatro copias `*-optimizado` comparten el mismo motor). Opcional y compatible con v2:
+- `data-cuadros="30"`: el giro automático va a un ritmo fijo y los módulos de la página se turnan los cuadros; al arrastrar vuelve a 60.
+- `data-luz-reparto="3"`: el sombreado del canto y la base se reparte entre cuadros (siempre con el ángulo actual).
+- Siempre: fuera de pantalla oculta sus piezas (`.m3d--fuera`), así el navegador no carga con sus capas 3D; transparencias a 2 decimales y reflejo en pasos de 1 %.
+Medido en el catálogo de Close Connect (390 px, CPU ×4, sin GPU): inicio 20 → 27 cuadros/s, modelos 19 → 49, paquetes 13 → 30. Comparado píxel por píxel con v2 en 5 ángulos: diferencia máxima 3 sobre 255.

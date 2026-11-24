@@ -46,6 +46,8 @@
   -webkit-user-select: none;
 }
 .m3d__escena:active { cursor: grabbing; }
+/* v3: fuera de pantalla se ocultan las piezas (el escenario conserva su tamaño) */
+.m3d--fuera .m3d__escena > * { display: none; }
 
 .m3d__sombra {
   position: absolute;

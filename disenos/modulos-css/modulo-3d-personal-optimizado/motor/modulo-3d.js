@@ -1,4 +1,14 @@
-/* Módulo 3D · motor optimizado v2 (derivado de Módulo 3D Estándar v1; mismo aspecto y misma API)
+/* Módulo 3D · motor optimizado v3 (derivado de Módulo 3D Estándar v1; mismo aspecto y misma API)
+   v3: data-cuadros limita los cuadros por segundo del giro automático (p. ej. 30) a un ritmo fijo y
+   reparte los cuadros entre los módulos de la página (cada uno dibuja en su turno), para que varios
+   módulos juntos no saturen el celular. Al arrastrar, con inercia o al ir a un ángulo vuelve a 60.
+   data-luz-reparto (p. ej. 3) reparte el sombreado del canto y de la base entre varios cuadros: en cada
+   cuadro se ilumina una parte de los segmentos, siempre con el ángulo actual; al detenerse quedan todos al día.
+   Además las transparencias del sombreado van a 2 decimales y el reflejo de las caras se mueve en pasos de 1 %,
+   así muchos segmentos no se repintan cuando el cambio no se notaría.
+   Fuera de pantalla el módulo además oculta sus piezas (clase m3d--fuera): el navegador deja de
+   cargar con sus capas 3D mientras otros módulos giran. El escenario conserva su tamaño.
+   Sin data-cuadros ni data-luz-reparto el giro y la luz se calculan igual que en v2.
    Optimizaciones v2: pausa real fuera de pantalla y con la pestaña oculta (sigue donde iba),
    canto adaptable al tamaño en pantalla, imágenes del ciclo bajo demanda (actual + siguiente)
    y sombras pre-dibujadas en motor/texturas/ (sin filter: blur en cada cuadro).
@@ -16,6 +26,8 @@
      data-controles  "no" para ocultar los botones
      data-velocidad  grados por segundo (40)
      data-inicio     ángulo inicial (20)
+     data-luz-reparto en cuántos cuadros se reparte el sombreado del canto y la base (1 = todo cada cuadro; 3 recomendado)
+     data-cuadros    cuadros por segundo del giro automático (60 = sin límite; 30 recomendado con varios módulos)
      data-grosor-mm  grosor real del módulo en mm (por defecto el del modelo)
      data-diametro-cm diámetro real del módulo (10 en Pro, 7 en Pro Plus)
      data-inclinacion grados de inclinación de cámara (-16 con base, -10 sin base)
@@ -41,6 +53,7 @@
 
   var LUZ = norm([-0.45, -0.65, 0.62]);              // luz de arriba a la izquierda
   var MEDIO = norm([LUZ[0], LUZ[1], LUZ[2] + 1]);    // vector medio luz-ojo (especular)
+  var TURNOS = 0;                                     // v3: reparte los cuadros entre módulos
   var REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function norm(v) { var l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; }
@@ -72,7 +85,9 @@
       segmentos: 64,
       velocidad: parseFloat(dato("velocidad", 40)),
       inclinacion: parseFloat(dato("inclinacion", conBase ? -16 : -10)),
-      flotar: parseFloat(dato("flotar", conBase ? 0 : 10))
+      flotar: parseFloat(dato("flotar", conBase ? 0 : 10)),
+      cuadros: Math.max(1, Math.min(60, parseFloat(dato("cuadros", 60)) || 60)),
+      reparto: Math.max(1, Math.min(8, parseInt(dato("luz-reparto", 1), 10) || 1))
     };
     // Base de acrílico (medidas en cm)
     var base = {
@@ -391,8 +406,9 @@
       cara(yTop, 90, [0, -1, 0]);
     }
 
-    function iluminarBase(rxr, ryr) {
-      piezas.forEach(function (p) {
+    function iluminarBase(rxr, ryr, parte) {
+      piezas.forEach(function (p, j) {
+        if (parte >= 0 && j % cfg.reparto !== parte) return;
         if (p.tipo === "sombra" || p.tipo === "sombra-modulo" || p.tipo === "caustica") return;
         var n = rotar(p.n, rxr, ryr);
         var frente = n[2];                                  // >0: mira a la cámara
@@ -404,21 +420,21 @@
           // superficie pulida: casi invisible de frente, refleja en ángulo rasante
           // Fresnel del acrílico (n≈1.49): de frente refleja ~4 %, en ángulo rasante mucho más,
           // pero lo que refleja es el estudio oscuro, así que se ve gris tenue y no lechoso
-          var a = 0.025 + 0.09 * fres + 0.5 * spec + (frente < 0 ? -0.01 : 0);
+          var a = Math.max(0, 0.025 + 0.09 * fres + 0.5 * spec + (frente < 0 ? -0.01 : 0));
           var desplaza = (50 + n[0] * 140).toFixed(1);
-          bg = "linear-gradient(105deg, rgba(225,242,246," + a.toFixed(3) + ") 0%," +
-            "rgba(255,255,255," + (a + 0.12 * (0.3 + dif)).toFixed(3) + ") " + desplaza + "%," +
-            "rgba(200,222,226," + a.toFixed(3) + ") 100%)";
+          bg = "linear-gradient(105deg, rgba(225,242,246," + a.toFixed(2) + ") 0%," +
+            "rgba(255,255,255," + (a + 0.12 * (0.3 + dif)).toFixed(2) + ") " + Math.round(desplaza) + "%," +
+            "rgba(200,222,226," + a.toFixed(2) + ") 100%)";
         } else {
           // canto cortado y pulido: se ve más denso (tinte verde-azulado del acrílico)
           var base = p.tipo === "ranura" ? 0.16 : 0.3;
           var al = base + 0.28 * dif + 0.2 * fres + (frente < 0 ? -0.08 : 0);
           var g = Math.round(222 + 30 * dif);
-          var tinte = "rgba(" + (g - 30) + "," + g + "," + (g - 8) + "," + Math.max(0.08, al).toFixed(3) + ")";
-          var luz = (0.35 + 0.65 * spec + 0.3 * dif).toFixed(3);
+          var tinte = "rgba(" + (g - 30) + "," + g + "," + (g - 8) + "," + Math.max(0.08, al).toFixed(2) + ")";
+          var luz = (0.35 + 0.65 * spec + 0.3 * dif).toFixed(2);
           bg = "linear-gradient(180deg, rgba(255,255,255," + luz + ") 0 1px," + tinte + " 1px," +
-            "rgba(255,255,255," + (0.08 + 0.6 * spec).toFixed(3) + ") 55%," + tinte + " calc(100% - 1px)," +
-            "rgba(255,255,255," + (luz * 0.6).toFixed(3) + ") calc(100% - 1px))";
+            "rgba(255,255,255," + (0.08 + 0.6 * spec).toFixed(2) + ") 55%," + tinte + " calc(100% - 1px)," +
+            "rgba(255,255,255," + (luz * 0.6).toFixed(2) + ") calc(100% - 1px))";
         }
         if (bg !== p.ultimo) {
           if (p.tipo === "cara") p.el.style.backgroundImage = bg; else p.el.style.background = bg;
@@ -427,16 +443,17 @@
       });
     }
 
-    function iluminar(rxr, ryr) {
+    function iluminar(rxr, ryr, parte) {
       caras.forEach(function (c) {
         var n = rotar(c.n, rxr, ryr);
         var dif = Math.max(0, punto(n, LUZ));
         c.luz.style.opacity = (0.26 * (1 - dif)).toFixed(3);
         var spec = Math.pow(Math.max(0, punto(n, MEDIO)), 6);
         c.ref.style.opacity = (0.15 + 0.85 * spec).toFixed(3);
-        c.ref.style.backgroundPosition = (50 + n[0] * 120) + "% 0";
+        c.ref.style.backgroundPosition = Math.round(50 + n[0] * 120) + "% 0";
       });
-      segs.forEach(function (s) {
+      segs.forEach(function (s, j) {
+        if (parte >= 0 && j % cfg.reparto !== parte) return;
         var n = rotar([s.nx, s.ny, 0], rxr, ryr);
         var dif = Math.max(0, punto(n, LUZ));
         var spec = Math.pow(Math.max(0, punto(n, MEDIO)), 40);
@@ -446,7 +463,7 @@
           bg = "rgb(" + v + "," + v + "," + v + ")";
         } else {
           var fres = Math.pow(1 - Math.abs(n[2]), 2);
-          var a = (0.18 + 0.25 * dif + 0.2 * fres).toFixed(3);
+          var a = (0.18 + 0.25 * dif + 0.2 * fres).toFixed(2);
           var b = Math.round(205 + 50 * dif), cB = Math.min(255, b + 15);
           var brillo = (0.15 + 0.85 * spec).toFixed(2);
           var vidrio = "rgba(" + (b - 25) + "," + b + "," + cB + "," + a + ")";
@@ -461,12 +478,23 @@
 
     var ry = parseFloat(dato("inicio", 20)), rx = cfg.inclinacion, vel = cfg.velocidad, auto = !REDUCE;
     var arrastrando = false, ultX = 0, ultY = 0, ultT = 0, inercia = 0, objetivo = null;
-    var ultimaLuz = null, t0 = performance.now(), prev = null, vivo = true;
+    var ultimaLuz = null, turnoLuz = 0, luzPendiente = 0, t0 = performance.now(), prev = null, vivo = true;
 
     var pausado = false, enPantalla = true, pausaManual = false, pausaDesde = 0;
+    var CUADRO = 1000 / 60, cada = Math.max(1, Math.round(60 / cfg.cuadros)), fase = TURNOS++, ultimoPaso = 0;
     function cuadro(ahora) {
       if (!vivo) return;
       if (pausado) return;            // v2: no se agenda otro cuadro mientras esté en pausa
+      // v3: ritmo fijo y por turnos en el giro automático (nunca al arrastrar ni con inercia)
+      if (cada > 1 && !arrastrando && objetivo === null && Math.abs(inercia) <= 2) {
+        var transcurrido = ahora - ultimoPaso;
+        var miTurno = (Math.floor(ahora / CUADRO) + fase) % cada === 0;
+        if (transcurrido < CUADRO * cada * 1.5 && (!miTurno || transcurrido < CUADRO * (cada - 0.5))) {
+          requestAnimationFrame(cuadro);
+          return;
+        }
+      }
+      ultimoPaso = ahora;
       var dt = Math.min(0.05, (ahora - (prev || ahora)) / 1000); prev = ahora;
       if (!arrastrando) {
         if (objetivo !== null) {
@@ -497,10 +525,16 @@
       marcarDiseno(zFrente);
       var clave = Math.round(ry) + "|" + Math.round(rxTot);
       if (clave !== ultimaLuz) {
-        iluminar(rxTot * Math.PI / 180, ry * Math.PI / 180);
-        if (conBase) iluminarBase(rxTot * Math.PI / 180, ry * Math.PI / 180);
-        if (conMDF) iluminarMDF(rxTot * Math.PI / 180, ry * Math.PI / 180);
+        // v3: recién construido (ultimaLuz null) se ilumina todo; si no, se reparte entre cuadros
+        luzPendiente = ultimaLuz === null ? -1 : cfg.reparto;
         ultimaLuz = clave;
+      }
+      if (luzPendiente !== 0) {
+        var parte = luzPendiente < 0 || cfg.reparto === 1 ? -1 : (turnoLuz++ % cfg.reparto);
+        iluminar(rxTot * Math.PI / 180, ry * Math.PI / 180, parte);
+        if (conBase) iluminarBase(rxTot * Math.PI / 180, ry * Math.PI / 180, parte);
+        if (conMDF) iluminarMDF(rxTot * Math.PI / 180, ry * Math.PI / 180);
+        luzPendiente = luzPendiente < 0 ? 0 : luzPendiente - 1;
       }
       requestAnimationFrame(cuadro);
     }
@@ -556,6 +590,7 @@
        Al reanudar sigue en el mismo ángulo y el mismo diseño (no reinicia). */
     function actualizarPausa() {
       var debe = pausaManual || !enPantalla || document.hidden;
+      raiz.classList.toggle("m3d--fuera", !enPantalla);   // v3: sin capas 3D fuera de pantalla
       if (debe && !pausado) { pausado = true; pausaDesde = performance.now(); }
       else if (!debe && pausado) {
         pausado = false;
