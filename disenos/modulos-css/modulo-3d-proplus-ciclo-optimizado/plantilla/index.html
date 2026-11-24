@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulo 3D Pro Plus sin base · ciclo · plantilla</title>
+  <link rel="stylesheet" href="../motor/modulo-3d.css">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+  </style>
+</head>
+<body class="m3d-estudio">
+
+  <!-- Sin base: solo el círculo de acrílico con sus dos caras, flotando.
+       [EDITAR] data-caras: lista de imágenes en orden (mínimo 3). Cada vez que una cara queda de espaldas cambia al siguiente diseño;
+       al terminar los 10 se repite el ciclo -->
+  <div id="modulo" data-modulo-3d
+       data-modelo="proplus"
+       data-canto="acrilico"
+       data-grosor-mm="3"
+       data-velocidad="34"
+       data-titulo="Módulo Pro Plus sin base · 10 diseños"
+       data-subtitulo="Cada vuelta muestra un diseño nuevo · arrastra para girar"
+       data-caras='["caras/cara-01.webp","caras/cara-02.webp","caras/cara-03.webp","caras/cara-04.webp","caras/cara-05.webp","caras/cara-06.webp","caras/cara-07.webp","caras/cara-08.webp","caras/cara-09.webp","caras/cara-10.webp"]'></div>
+
+  <script src="../motor/modulo-3d.js"></script>
+</body>
+</html>
