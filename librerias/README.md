@@ -65,5 +65,10 @@ Si la categoría no existe, crea la carpeta nueva y añádela al árbol de arrib
 |---|---|---|---|
 | 01 | [Panel de tarjetas desplegables](tarjetas/01-panel-fey/) | Tarjetas apiladas que pasan a color y despliegan un panel con la info de cada foto | ✅ |
 
+### Fondos
+| # | Componente | Descripción | HTML |
+|---|---|---|---|
+| 01 | [Puntos brillantes](fondos/01-puntos-brillantes/) | Rejilla de puntos tenues que se iluminan a su ritmo con halo suave; solo el fondo (sin logo ni texto) | ✅ |
+
 ### Formularios · Animaciones · Transiciones · Íconos
 _Sin componentes todavía._

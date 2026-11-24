@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fondo de puntos brillantes · demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="demo-cuerpo oscuro">
+  <!-- Igual que el ejemplo original (modo oscuro), sin el logo ni el texto: solo el fondo de partículas -->
+  <div class="demo-fila">
+    <div>
+      <div class="demo-tarjeta">
+        <div class="fondo-puntos fondo-puntos--desvanecido" data-fondo-puntos
+             data-gap="10" data-radio="1.6" data-opacidad="1"
+             data-color="#737373" data-brillo="#075985"
+             data-vel-min="0.3" data-vel-max="1.6" data-vel-escala="1"></div>
+      </div>
+      <p>Original (oscuro): puntos #737373, brillo #075985</p>
+    </div>
+    <div>
+      <div class="demo-tarjeta" style="background:#fff">
+        <div class="fondo-puntos fondo-puntos--desvanecido" data-fondo-puntos
+             data-color="#737373" data-brillo="#525252"></div>
+      </div>
+      <p>Original (claro): puntos #737373, brillo #525252</p>
+    </div>
+  </div>
+  <script src="fondo-puntos.js"></script>
+</body>
+</html>
