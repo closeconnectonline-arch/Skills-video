@@ -71,5 +71,10 @@ Si la categoría no existe, crea la carpeta nueva y añádela al árbol de arrib
 |---|---|---|---|
 | 01 | [Puntos brillantes](fondos/01-puntos-brillantes/) | Rejilla de puntos tenues que se iluminan a su ritmo con halo suave; solo el fondo (sin logo ni texto) | ✅ |
 
-### Formularios · Animaciones · Transiciones · Íconos
+### Animaciones
+| # | Componente | Descripción | HTML |
+|---|---|---|---|
+| 01 | [Texto giratorio](animaciones/01-texto-giratorio/) | Caja con relieve que cambia de palabra: ajusta su ancho y las letras salen de un desenfoque | ✅ |
+
+### Formularios · Transiciones · Íconos
 _Sin componentes todavía._

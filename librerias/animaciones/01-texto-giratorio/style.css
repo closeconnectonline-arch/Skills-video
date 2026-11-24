@@ -1,0 +1,44 @@
+/* Texto giratorio · v1 (Container Text Flip de Aceternity UI, sin React ni Tailwind) */
+.texto-giratorio {
+  /* claro (valores del original) */
+  --tg-fondo: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
+  --tg-sombra: inset 0 -1px #d1d5db, inset 0 0 0 1px #d1d5db, 0 4px 8px #d1d5db;
+  --tg-color: #000;
+  --tg-relleno: 15px;          /* espacio a cada lado (el original suma 30 px al ancho) */
+  --tg-duracion: 700ms;
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  padding: .5rem 0 .75rem;     /* pt-2 pb-3 */
+  border-radius: .5rem;        /* rounded-lg */
+  background: var(--tg-fondo);
+  box-shadow: var(--tg-sombra);
+  color: var(--tg-color);
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  overflow: clip;             /* recorta al encoger sin mover la línea base (hidden la movería) */
+  transition: width calc(var(--tg-duracion) / 2) ease-in-out;
+}
+.texto-giratorio--oscuro {
+  --tg-fondo: linear-gradient(to bottom, #374151, #1f2937);
+  --tg-sombra: inset 0 -1px #10171e, inset 0 0 0 1px hsla(205, 89%, 46%, .24), 0 4px 8px #00000052;
+  --tg-color: #fff;
+}
+.texto-giratorio--sin-transicion { transition: none; }
+.texto-giratorio__texto { display: inline-block; }
+.texto-giratorio__letra { display: inline-block; }
+.texto-giratorio__letra.entra { opacity: 0; animation: tg-entra .3s ease-out forwards; }
+@keyframes tg-entra {
+  from { opacity: 0; filter: blur(10px); }
+  to { opacity: 1; filter: blur(0); }
+}
+.texto-giratorio__lector {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .texto-giratorio { transition: none; }
+  .texto-giratorio__letra.entra { animation: none; opacity: 1; }
+}
