@@ -1,0 +1,48 @@
+/* Carrusel 3D de módulos Close Connect · v1 */
+.cc-carrusel {
+  position: relative; width: 100%; height: 100vh; height: 100svh; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 102%, #5a5a5c 0%, #2e2e30 30%, #151516 66%, #0b0b0c 100%);
+  touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #f2f2f0;
+}
+.cc-carrusel:focus-visible { box-shadow: inset 0 0 0 2px #9fd3ff; }
+.cc-carrusel__lienzo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .6s ease; cursor: grab; }
+.cc-carrusel--listo .cc-carrusel__lienzo { opacity: 1; }
+.cc-carrusel--arrastrando .cc-carrusel__lienzo { cursor: grabbing; }
+.cc-carrusel__cargando { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; opacity: .6; }
+
+.cc-btn {
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border-radius: 50%;
+  color: #f2f2f0; background: rgba(28, 28, 30, .55); border: 1px solid rgba(255, 255, 255, .16); cursor: pointer;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .2s ease, transform .2s ease;
+}
+.cc-btn:hover { background: rgba(60, 60, 64, .7); }
+.cc-btn:active { transform: scale(.94); }
+.cc-btn:focus-visible, .cc-punto:focus-visible { outline: 2px solid #9fd3ff; outline-offset: 3px; }
+.cc-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cc-btn--grande { width: 52px; height: 52px; }
+.cc-btn--grande svg { width: 20px; height: 20px; }
+.cc-btn .i-play { display: none; fill: currentColor; stroke: none; }
+.cc-carrusel--pausado .cc-btn .i-play { display: block; }
+.cc-carrusel--pausado .cc-btn .i-pausa { display: none; }
+
+.cc-carrusel__nav {
+  position: absolute; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  display: flex; align-items: center; gap: 14px; z-index: 2;
+}
+.cc-carrusel__puntos { display: flex; gap: 10px; padding: 0 4px; }
+.cc-punto {
+  width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .32); position: relative; transition: background .25s ease, transform .25s ease;
+}
+.cc-punto::after { content: ""; position: absolute; inset: -10px; }   /* área táctil de 29 px */
+.cc-punto[aria-pressed="true"] { background: #fff; transform: scale(1.35); }
+.cc-carrusel__esquina {
+  position: absolute; right: max(18px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 10px; z-index: 2;
+}
+@media (max-width: 560px) {
+  .cc-carrusel__nav { bottom: 84px; }
+  .cc-carrusel__esquina { left: 50%; right: auto; transform: translateX(-50%); }
+}
+.cc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
