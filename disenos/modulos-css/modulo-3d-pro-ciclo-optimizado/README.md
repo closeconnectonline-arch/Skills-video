@@ -60,6 +60,9 @@ modulo-3d-pro-ciclo/
 - Con un número par de diseños, el frente siempre muestra los nones (1, 3, 5…) y el reverso los pares. Con un número impar se van alternando en cada vuelta.
 - La velocidad (`data-velocidad`, 34 °/s) marca cada cuánto aparece un diseño nuevo: uno cada ~5 segundos.
 
+### v3.1 (2026-11-25)
+- Las texturas de grano del MDF ya no se calculan con filtros SVG (`feTurbulence`) en cada módulo: van pre-dibujadas en `motor/texturas/grano-mdf.webp` y `grano-mdf-canto.webp` (5 KB cada una). Mismo aspecto (comparado en el catálogo de Close Connect). Se generan con `tools/optimizar/texturas.py` del repo del sitio oficial.
+
 ### v3 (2026-11-24)
 Motor optimizado v3 (las cuatro copias `*-optimizado` comparten el mismo motor). Opcional y compatible con v2:
 - `data-cuadros="30"`: el giro automático va a un ritmo fijo y los módulos de la página se turnan los cuadros; al arrastrar vuelve a 60.

@@ -71,6 +71,9 @@ modulo-3d-estandar/
 - Una tarjeta de 2 mm con vinil por ambos lados mide unos 2.2 mm, así que no entra en una ranura de 2 mm. Corta la ranura de **2.3 mm** y haz un corte de prueba.
 - La profundidad de 6 mm es un supuesto: es la mitad del alto. Si la real es otra, cambia `data-mdf-profundidad`.
 
+### v3.1 (2026-11-25)
+- Las texturas de grano del MDF ya no se calculan con filtros SVG (`feTurbulence`) en cada módulo: van pre-dibujadas en `motor/texturas/grano-mdf.webp` y `grano-mdf-canto.webp` (5 KB cada una). Mismo aspecto (comparado en el catálogo de Close Connect). Se generan con `tools/optimizar/texturas.py` del repo del sitio oficial.
+
 ### v3 (2026-11-24)
 Motor optimizado v3 (las cuatro copias `*-optimizado` comparten el mismo motor). Opcional y compatible con v2:
 - `data-cuadros="30"`: el giro automático va a un ritmo fijo y los módulos de la página se turnan los cuadros; al arrastrar vuelve a 60.
